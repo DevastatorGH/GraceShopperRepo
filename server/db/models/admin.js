@@ -6,7 +6,7 @@ const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
-const User = db.define('user', {
+const Admin = db.define('admin', {
   firstName: {
     type: Sequelize.STRING,
     allowNull: false
@@ -25,48 +25,44 @@ const User = db.define('user', {
   },
   email:{
     type: Sequelize.TEXT,
-  },
-  creditCard: {
-    type: Sequelize.STRING,
-  },
-  isLoggedIn: Sequelize.BOOLEAN
+  },  
 })
 
-module.exports = User
+module.exports = Admin
 
 /**
  * instanceMethods
  */
-User.prototype.correctPassword = function(candidatePwd) {
+Admin.prototype.correctPassword = function(candidatePwd) {
   //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password);
 }
 
-User.prototype.generateToken = function() {
+Admin.prototype.generateToken = function() {
   return jwt.sign({id: this.id}, process.env.JWT)
 }
 
 /**
  * classMethods
  */
-User.authenticate = async function({ username, password }){
-    const user = await this.findOne({where: { username }})
-    if (!user || !(await user.correctPassword(password))) {
+Admin.authenticate = async function({ username, password }){
+    const admin = await this.findOne({where: { username }})
+    if (!admin || !(await admin.correctPassword(password))) {
       const error = Error('Incorrect username/password');
       error.status = 401;
       throw error;
     }
-    return user.generateToken();
+    return admin.generateToken();
 };
 
-User.findByToken = async function(token) {
+Admin.findByToken = async function(token) {
   try {
     const {id} = await jwt.verify(token, process.env.JWT)
-    const user = User.findByPk(id)
-    if (!user) {
+    const admin = Admin.findByPk(id)
+    if (!admin) {
       throw 'nooo'
     }
-    return user
+    return admin
   } catch (ex) {
     const error = Error('bad token')
     error.status = 401
@@ -77,15 +73,15 @@ User.findByToken = async function(token) {
 /**
  * hooks
  */
-const hashPassword = async(user) => {
+const hashPassword = async(admin) => {
   //in case the password has been changed, we want to encrypt it with bcrypt
-  if (user.changed('password')) {
-    user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
+  if (admin.changed('password')) {
+    admin.password = await bcrypt.hash(admin.password, SALT_ROUNDS);
   }
 }
 
-User.beforeCreate(hashPassword)
-User.beforeUpdate(hashPassword)
-User.beforeBulkCreate(users => {
-  users.forEach(hashPassword)
+Admin.beforeCreate(hashPassword)
+Admin.beforeUpdate(hashPassword)
+Admin.beforeBulkCreate(admin => {
+    admin.forEach(hashPassword)
 })
