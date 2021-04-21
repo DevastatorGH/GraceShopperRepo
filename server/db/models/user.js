@@ -32,7 +32,6 @@ const User = db.define("user", {
     type: Sequelize.STRING
   },
   email: {
-<<<<<<< HEAD
     type: Sequelize.STRING,
     validate: {
       isEmail: true,
@@ -44,18 +43,10 @@ const User = db.define("user", {
       isCreditCard: true
     }
   },
-  isLoggedIn: Sequelize.BOOLEAN,
-=======
-    type: Sequelize.TEXT
-  },
-  creditCard: {
-    type: Sequelize.STRING
-  },
-  cart: {
-    type: Sequelize.ARRAY // [productId, productId, ]
-  },
-  isLoggedIn: Sequelize.BOOLEAN
->>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaul: false
+  }
 });
 
 module.exports = User;
