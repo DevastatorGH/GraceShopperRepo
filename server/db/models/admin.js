@@ -24,7 +24,10 @@ const Admin = db.define('admin', {
     type: Sequelize.STRING,
   },
   email:{
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
+    validate: {
+        isEmail: true
+    }
   },  
 })
 
