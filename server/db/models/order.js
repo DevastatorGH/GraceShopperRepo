@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../db');
+const db = require('../database');
 
 // export Order Model
 module.exports = db.define('order', {

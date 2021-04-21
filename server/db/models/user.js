@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 const Sequelize = require("sequelize");
-const db = require("../db");
+const db = require("../database");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
-=======
-const Sequelize = require('sequelize');
-const db = require('../db');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const axios = require('axios');
->>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
 
 const SALT_ROUNDS = 5;
 
@@ -69,11 +61,7 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
-<<<<<<< HEAD
     const error = Error("Incorrect username/password");
-=======
-    const error = Error('Incorrect username/password');
->>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
     error.status = 401;
     throw error;
   }
@@ -85,19 +73,11 @@ User.findByToken = async function (token) {
     const { id } = await jwt.verify(token, process.env.JWT);
     const user = User.findByPk(id);
     if (!user) {
-<<<<<<< HEAD
       throw "nooo";
     }
     return user;
   } catch (ex) {
     const error = Error("bad token");
-=======
-      throw 'nooo';
-    }
-    return user;
-  } catch (ex) {
-    const error = Error('bad token');
->>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
     error.status = 401;
     throw error;
   }
