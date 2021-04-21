@@ -14,7 +14,7 @@ module.exports = db.define('order', {
     default: 'pending'
   },
   totalPrice: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,

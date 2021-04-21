@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-module.exports = db.define("productOrder", {
+module.exports = db.define("product_order", {
   productId: {
     type: Sequelize.INTEGER,
     references: {
