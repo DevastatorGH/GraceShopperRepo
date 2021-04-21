@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 const Sequelize = require("sequelize");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
+=======
+const Sequelize = require('sequelize');
+const db = require('../db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const axios = require('axios');
+>>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
 
 const SALT_ROUNDS = 5;
 
@@ -21,9 +29,10 @@ const User = db.define("user", {
     allowNull: false,
   },
   password: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   email: {
+<<<<<<< HEAD
     type: Sequelize.STRING,
     validate: {
       isEmail: true,
@@ -36,6 +45,17 @@ const User = db.define("user", {
     }
   },
   isLoggedIn: Sequelize.BOOLEAN,
+=======
+    type: Sequelize.TEXT
+  },
+  creditCard: {
+    type: Sequelize.STRING
+  },
+  cart: {
+    type: Sequelize.ARRAY // [productId, productId, ]
+  },
+  isLoggedIn: Sequelize.BOOLEAN
+>>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
 });
 
 module.exports = User;
@@ -58,7 +78,11 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
+<<<<<<< HEAD
     const error = Error("Incorrect username/password");
+=======
+    const error = Error('Incorrect username/password');
+>>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
     error.status = 401;
     throw error;
   }
@@ -70,11 +94,19 @@ User.findByToken = async function (token) {
     const { id } = await jwt.verify(token, process.env.JWT);
     const user = User.findByPk(id);
     if (!user) {
+<<<<<<< HEAD
       throw "nooo";
     }
     return user;
   } catch (ex) {
     const error = Error("bad token");
+=======
+      throw 'nooo';
+    }
+    return user;
+  } catch (ex) {
+    const error = Error('bad token');
+>>>>>>> 8b666bf9c48743faf8a90fef4a64af06e6786537
     error.status = 401;
     throw error;
   }
