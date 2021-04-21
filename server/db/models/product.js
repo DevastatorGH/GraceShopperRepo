@@ -23,8 +23,7 @@ module.exports = db.define('product', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      min: 0,
-      max: 500
+      min: 0
     }
   },
   inventory: {

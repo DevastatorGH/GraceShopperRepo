@@ -10,19 +10,18 @@ module.exports = db.define('order', {
     }
   },
   orderStatus: {
-    type: Sequelize.ENUM(['processed', 'shipped', 'delievered']),
+    type: Sequelize.ENUM(['pending', 'processed', 'shipped', 'delievered']),
     default: 'pending'
   },
-  price: {
+  totalPrice: {
     type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true,
-      min: 0,
-      max: 500
+      min: 0
     }
   },
-  inventory: {
+  totalItems: {
     type: Sequelize.INTEGER,
     allowNull: false,
     default: 0
