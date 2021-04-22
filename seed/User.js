@@ -1,4 +1,4 @@
-[{"id":1,"firstName":"Sanders","lastName":"Thorold","email":"sthorold0@tumblr.com","isAdmin":false,"username":"Hydrochoerus hydrochaeris","creditCard":"3561444698359754"},
+const user = [{"id":1,"firstName":"Sanders","lastName":"Thorold","email":"sthorold0@tumblr.com","isAdmin":false,"username":"Hydrochoerus hydrochaeris","creditCard":"3561444698359754"},
 {"id":2,"firstName":"Deva","lastName":"Chidgey","email":"dchidgey1@mozilla.com","isAdmin":true,"username":"Hymenolaimus malacorhynchus","creditCard":"3557581469114540"},
 {"id":3,"firstName":"Georgine","lastName":"Surr","email":"gsurr2@jigsy.com","isAdmin":false,"username":"Ephipplorhynchus senegalensis","creditCard":"676182937260706544"},
 {"id":4,"firstName":"Lynda","lastName":"Langmead","email":"llangmead3@kickstarter.com","isAdmin":false,"username":"Choloepus hoffmani","creditCard":"4905979421185896"},
@@ -10,3 +10,5 @@
 {"id":10,"firstName":"Blakeley","lastName":"Falconer-Taylor","email":"bfalconertaylor9@ebay.com","isAdmin":false,"username":"Didelphis virginiana","creditCard":"3564328313347517"},
 {"id":11,"firstName":"Benjamen","lastName":"Andriesse","email":"bandriessea@bigcartel.com","isAdmin":true,"username":"Erethizon dorsatum","creditCard":"379215473246756"},
 {"id":12,"firstName":"Donovan","lastName":"Impey","email":"dimpeyb@cyberchimps.com","isAdmin":false,"username":"Lamprotornis chalybaeus","creditCard":"201940193611922"}]
+
+module.exports = user

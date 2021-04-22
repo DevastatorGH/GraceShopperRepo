@@ -1,4 +1,4 @@
-[{"id":1,"orderDate":"5/22/2021","totalItems":9,"totalPrice":1232960,"orderStatus":"processed"},
+const order = [{"id":1,"orderDate":"5/22/2021","totalItems":9,"totalPrice":1232960,"orderStatus":"processed"},
 {"id":2,"orderDate":"4/26/2020","totalItems":6,"totalPrice":719857,"orderStatus":"pending"},
 {"id":3,"orderDate":"5/5/2020","totalItems":18,"totalPrice":1305274,"orderStatus":"processed"},
 {"id":4,"orderDate":"3/8/2021","totalItems":2,"totalPrice":1064735,"orderStatus":"pending"},
@@ -10,3 +10,5 @@
 {"id":10,"orderDate":"4/12/2021","totalItems":20,"totalPrice":254417,"orderStatus":"pending"},
 {"id":11,"orderDate":"8/2/2020","totalItems":12,"totalPrice":335009,"orderStatus":"processed"},
 {"id":12,"orderDate":"1/8/2021","totalItems":14,"totalPrice":1847036,"orderStatus":"pending"}]
+
+module.exports = order

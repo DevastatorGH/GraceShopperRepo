@@ -6,6 +6,7 @@ const Order = require('./models/order')
 const User = require('./models/user')
 const Product = require('./models/product')
 const productOrder = require('./models/productOrder')
+const seed = require('../../seed')
 
 
 
@@ -38,5 +39,6 @@ module.exports = {
   User, 
   Order,
   Product, 
-  Address
+  Address,
+  seed
 };

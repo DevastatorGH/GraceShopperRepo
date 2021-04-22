@@ -1,4 +1,4 @@
-[{"id":1,"quantity":4,"priceSnapshot":25196},
+const product_orders = [{"id":1,"quantity":4,"priceSnapshot":25196},
 {"id":2,"quantity":8,"priceSnapshot":12201},
 {"id":3,"quantity":5,"priceSnapshot":24938},
 {"id":4,"quantity":1,"priceSnapshot":25609},
@@ -10,3 +10,5 @@
 {"id":10,"quantity":2,"priceSnapshot":10981},
 {"id":11,"quantity":1,"priceSnapshot":31799},
 {"id":12,"quantity":7,"priceSnapshot":7232}]
+
+module.exports = product_orders
