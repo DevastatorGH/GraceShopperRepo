@@ -1,21 +1,30 @@
 //this is the access point for all things database related!
 
-const db = require('./db');
+const db = require('./database');
 const Address = require('./models/address');
+const Order = require('./models/order');
+// const User = require('./models/user')
+const Product = require('./models/product');
+const productOrder = require('./models/productOrder');
+const seed = require('../../seed');
 
-const User = require('./models/User');
+Order.belongsToMany(Product, { through: productOrder });
+Product.belongsToMany(Order, { through: productOrder });
 
-Order.hasMany(Product);
-Product.belongsToMany(Order);
+// productOrder.belongsTo(Product)
+// Product.hasMany(productOrder)
+// productOrder.belongsTo(Order)
+// Order.hasMany(productOrder)
 
-Order.belongsTo(User);
-User.hasMany(Order);
+// Order.belongsTo(User);
 
-Address.belongsTo(User);
-User.hasMany(Address);
+// User.hasMany(Order);
 
-Order.hasOne(Address);
-Address.belongsToMany(Order, {foreignKey: 'addressId'});
+// Address.belongsTo(User);
+// User.hasMany(Address);
+
+// Order.hasOne(Address);
+// Address.belongsToMany(Order, {foreignKey: 'addressId'});
 
 //Product.belongsTo(Category);
 //Product.belongsToMany(Tag);
@@ -25,7 +34,9 @@ Address.belongsToMany(Order, {foreignKey: 'addressId'});
 
 module.exports = {
   db,
-  models: {
-    User
-  }
+  // User,
+  Order,
+  Product,
+  Address,
+  seed
 };
