@@ -5,13 +5,13 @@ const Address = require('./models/address');
 const Order = require('./models/order')
 const User = require('./models/user')
 const Product = require('./models/product')
-//const productOrder = require('./models/productOrder')
-//const seed = require('../../seed')
+const productOrder = require('./models/productOrder')
+const seed = require('../../seed')
 
 
 
-Order.belongsToMany(Product, {through: "productOrder"});
-Product.belongsToMany(Order, {through: "productOrder"});
+Order.belongsToMany(Product, { through: productOrder });
+Product.belongsToMany(Order, { through: productOrder });
 
 // productOrder.belongsTo(Product)
 // Product.hasMany(productOrder)
@@ -19,7 +19,6 @@ Product.belongsToMany(Order, {through: "productOrder"});
 // Order.hasMany(productOrder) 
 
 Order.belongsTo(User);
-
 User.hasMany(Order);
 
 // Address.belongsTo(User);
@@ -39,5 +38,6 @@ module.exports = {
   User, 
   Order,
   Product, 
-  Address
+  Address,
+  seed
 };
