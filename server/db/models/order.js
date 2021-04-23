@@ -1,8 +1,8 @@
-const Sequelize = require('sequelize');
-const db = require('../database');
+const Sequelize = require("sequelize")
+const db = require("../database")
 
 // export Order Model
-module.exports = db.define('order', {
+module.exports = db.define("order", {
   orderDate: {
     type: Sequelize.DATE,
     validate: {
@@ -10,8 +10,8 @@ module.exports = db.define('order', {
     }
   },
   orderStatus: {
-    type: Sequelize.ENUM(['pending', 'processed', 'shipped', 'delievered']),
-    default: 'pending'
+    type: Sequelize.ENUM(["pending", "processed", "shipped", "delievered"]),
+    defaultValue: "pending"
   },
   totalPrice: {
     type: Sequelize.INTEGER,
@@ -24,6 +24,6 @@ module.exports = db.define('order', {
   totalItems: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    default: 0
+    defaultValue: 0
   }
-});
+})
