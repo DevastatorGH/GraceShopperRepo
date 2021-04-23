@@ -23,7 +23,7 @@ module.exports = db.define("productOrder", {
         notEmpty: true,
     },
   },
-  snapShotPrice: {
+  priceSnapshot: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {

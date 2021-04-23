@@ -3,10 +3,9 @@
 const db = require('./database');
 const Address = require('./models/address');
 const Order = require('./models/order');
-// const User = require('./models/user')
+const User = require('./models/user')
 const Product = require('./models/product');
 const productOrder = require('./models/productOrder');
-const seed = require('../../seed');
 
 Order.belongsToMany(Product, { through: productOrder });
 Product.belongsToMany(Order, { through: productOrder });
@@ -34,9 +33,9 @@ Product.belongsToMany(Order, { through: productOrder });
 
 module.exports = {
   db,
-  // User,
+  User,
   Order,
   Product,
   Address,
-  seed
+  productOrder,
 };
