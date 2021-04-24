@@ -1,5 +1,5 @@
 import React from "react"
-import Link from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const ProductCard = props => {
   const { product } = props
@@ -17,7 +17,7 @@ const ProductCard = props => {
         </Link>
 
         <h5 className="card-price">
-          Fuel Level: {(product.price / 1000).toFixed(2)}
+          {(product.price / 1000).toFixed(2)}
         </h5>
       </div>
     </div>
@@ -25,3 +25,4 @@ const ProductCard = props => {
 }
 
 export default ProductCard
+
