@@ -7,11 +7,13 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH'
+const SET_ORDER = 'SET_ORDER'
 
 /**
  * ACTION CREATORS
  */
 const setAuth = auth => ({type: SET_AUTH, auth})
+const setOrder = order =>({type: SET_ORDER, order})
 
 /**
  * THUNK CREATORS
@@ -25,6 +27,19 @@ export const me = () => async dispatch => {
       }
     })
     return dispatch(setAuth(res.data))
+  }
+}
+
+export const order = (id) => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  console.log(token, "token from thunk")
+  if(token) {
+    const res = await axios.get(`/${id}/order`, {
+      headers: {
+        authorization: token
+      }
+    })
+    return dispatch(setOrder(res.data))
   }
 }
 
@@ -50,10 +65,12 @@ export const logout = () => {
 /**
  * REDUCER
  */
-export default function(state = {}, action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth
+    case SET_ORDER:
+      return action.order
     default:
       return state
   }
