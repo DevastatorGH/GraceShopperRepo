@@ -2,6 +2,7 @@ import React from "react"
 import {Link} from "react-router-dom"
 
 const ProductCard = props => {
+  console.log(props, "Product card")
   const { product } = props
 
   return (
