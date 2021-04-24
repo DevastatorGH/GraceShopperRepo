@@ -3,7 +3,7 @@
 const db = require('./database');
 const Address = require('./models/address');
 const Order = require('./models/order');
-const User = require('./models/user')
+const User = require('./models/user');
 const Product = require('./models/product');
 const productOrder = require('./models/productOrder');
 
@@ -15,9 +15,9 @@ Product.belongsToMany(Order, { through: productOrder });
 // productOrder.belongsTo(Order)
 // Order.hasMany(productOrder)
 
-// Order.belongsTo(User);
+Order.belongsTo(User);
 
-// User.hasMany(Order);
+User.hasMany(Order);
 
 // Address.belongsTo(User);
 // User.hasMany(Address);
