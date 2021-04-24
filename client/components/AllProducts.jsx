@@ -20,7 +20,7 @@ export class AllProducts extends React.Component {
     return (
       <div>
         {products.map(product => {
-          ;<div className="productCard" key={product.id}>
+          <div className="productCard" key={product.id}>
             <ProductCard product={product} />
           </div>
         })}
