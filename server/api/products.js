@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Product = require('../db/models/product');
 const Order = require('../db/models/order')
 const User = require('../db/models/user');
+const productOrder = require('../db/models/productOrder')
 
 // Other Models may be needed here
 module.exports = router;
@@ -33,19 +34,19 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization;
-    console.log(req.headers.authorization, 'heders')
-    const user = await User.findByToken(token);
-    req.user = user;
-    next();
-  } catch(error) {
-    next(error);
-  }
-};
+// const requireToken = async (req, res, next) => {
+//   try {
+//     const token = req.headers.authorization;
+//     console.log(req.headers.authorization, 'heders')
+//     const user = await User.findByToken(token);
+//     req.user = user;
+//     next();
+//   } catch(error) {
+//     next(error);
+//   }
+// };
 
-router.get('/:id/order', requireToken, async (req, res, next) => {
+router.get('/:id/order', /*requireToken,*/ async (req, res, next) => {
   try {
     console.log(req.params.userId, 'IDIDID')
     if (req.user.id !== req.params.id) {
@@ -54,9 +55,21 @@ router.get('/:id/order', requireToken, async (req, res, next) => {
 
     const order = await Order.findOne({
       where: {
-        userId: req.params.id
+        userId: req.params.id,
+        orderStatus: 'pending'
       }
     });
+    const productOrder = await productOrder.findAll({
+      where: {
+        orderId: order.id
+      }
+    })
+    const products = await Product.findAll({
+      where: {
+        id: productOrder.productId
+      }
+    })
+    res.send({order, productOrder, products})
   } catch (error) {
       next(error)
   }
