@@ -4,7 +4,13 @@ import { fetchProducts } from "../store/products"
 import ProductCard from "./ProductCard"
 
 export class AllProducts extends React.Component {
+   constructor(props){
+     console.log("Inside Constructore function", props)
+     super(props)
+   }
+
   componentDidMount() {
+    console.log("Inside componentDidMount")
     this.props.getProducts()
   }
 
@@ -34,7 +40,7 @@ const mapState = state => {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    getProducts: product => dispatch(fetchProducts(product, history))
+    getProducts: () => dispatch(fetchProducts())
   }
 }
 
