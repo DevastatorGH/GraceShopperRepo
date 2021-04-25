@@ -7,27 +7,40 @@ import {authenticate} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+  console.log("AuthForm", name)
+
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
+    <div className="auth-body">
+    <div className="container">
+      <form id="form" className="form" onSubmit={handleSubmit} name={name}>
+      <h2>{displayName}</h2>
+      <h5>Enter Login details to get access</h5>
+        <div className="form-control">
           <label htmlFor="username">
-            <small>Username</small>
+            Username
           </label>
-          <input name="username" type="text" />
+          <input id="username" name="username" type="text" placeholder="Username/ Email address" />
+
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="password">
-            <small>Password</small>
+           Password
           </label>
-          <input name="password" type="password" />
+          <input id="password" name="password" type="password" placeholder="Enter password" />
+
+        </div>
+        <div class="redirect-link">
+          <h5>Don't have an account? Sign Up here </h5>
         </div>
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        <div className="error-message">
+      {error && error.response && <div> {error.response.data} </div>}
+        </div>
       </form>
+    </div>
     </div>
   )
 }
@@ -67,5 +80,6 @@ const mapDispatch = dispatch => {
   }
 }
 
+// These are exported to the Routes page as single components
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
