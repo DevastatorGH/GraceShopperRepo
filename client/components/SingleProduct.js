@@ -46,10 +46,10 @@ export class SingleProduct extends React.Component {
              <p>{product.description}</p>
              <div className="card-area">
                <div className="product_count_button">
-               <span class="material-icons">remove_circle_outline</span>
+               <span className="material-icons">remove_circle_outline</span>
 
                <input className="input-number" type="text" value="1" min="0" max="10"></input>
-               <span class="material-icons">add_circle_outline</span>
+               <span className="material-icons">add_circle_outline</span>
                </div>
                 <div className="add_to_card">
                   <button className="btn btn-warning" type="button">ADD TO CART</button>
