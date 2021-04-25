@@ -1,14 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import { Link } from "react-router-dom"
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-  console.log("AuthForm", name)
-
 
   return (
     <div className="auth-body">
@@ -31,7 +30,8 @@ const AuthForm = props => {
 
         </div>
         <div class="redirect-link">
-          <h5>Don't have an account? Sign Up here </h5>
+
+          <h5>Don't have an account? <Link to="/signup">Sign Up</Link> here. </h5>
         </div>
         <div>
           <button type="submit">{displayName}</button>
