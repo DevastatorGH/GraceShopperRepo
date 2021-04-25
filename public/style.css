@@ -1,21 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+/* means for everything add box-sizing for all projects so no padding will effect the width of the elemen */
+* {
+  box-sizing: border-box;
+}
+
+/* Nav Bar Styles  */
 body {
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 a {
   text-decoration: none;
 }
-
-label {
-  display: block;
+nav {
+  background-color: rgb(153, 168, 125);
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
 }
+/* End Nav Bar Styles */
 
-form div {
-  margin: 1em;
-  display: inline-block;
+
+/* Authentication Page Styles */
+.auth-body{
+  /* background-color: #f9fafb; */
+  background-image: url(https://source.unsplash.com/4HG3Ca3EzWw/1600x900);
+  background-size: cover;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* takes up 100 of the view port */
+  min-height: 100vh;
+  /* remove margin will help center it */
+  margin: 0;
 }
+
+.auth-container {
+  background-color: #f9fafb;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  width: 600px;
+  height: 500px;
+}
+
+.auth-container h2 {
+  text-align: center;
+  margin: 0 0 20px;
+}
+.auth-container h5 {
+  text-align: center
+}
+
+.form {
+  /* top/bottom left/right */
+  padding: 30px 40px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position: relative;
+  border: none;
+}
+
+.form-control label {
+  color: #777;
+  /* Allows the labels to display above the input box */
+  display: block;
+  /* Creates 5px worth of space between the username Label and input box */
+  margin-bottom: 5px;
+}
+
+.form-control input {
+  /* the dark lines around the input box are lighten up  */
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  /* places all input attributes on an seperate line  */
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.form-control input:focus {
+  outline: 0;
+  border-color: #777;
+}
+
+
+.redirect-link h5 {
+ margin-top: 25px;
+ margin-bottom: 25px;
+}
+
+.form button {
+  cursor: pointer;
+  background-color: #3498db;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 0px;
+  width: 100%;
+
+}
+/* END Authentication Page Styles */
+
+/* All Products View Styles */
+.row ul li {
+  list-style: none;
+  text-align: center;
+}
+
+/* END All Products View Styles */
+
+/* Single Product View Styles  */
+.row {
+  display:flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 75px;
+}
+
+.btn {
+  margin-top: 40px;
+  margin-left: 25px;
+}
+/* END Single Product Styles */
+
+
+/* Uncertain */
+/* ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.material-icons.white600 {
+  color: whitesmoke;
+  text-align: right;
+} */

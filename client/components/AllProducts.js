@@ -13,7 +13,8 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
 
     return products && products.length > 0 ? (
-      <div>
+      <div className="container">
+      <div className="row all_products_inner">
         <ul>
           {products.map((product) => {
             return (
@@ -24,9 +25,10 @@ export class AllProducts extends React.Component {
             </li>);
           })}
         </ul>
+        </div>
       </div>
     ) : (
-      "hi"
+      "Products are loading..."
     );
   }
 }

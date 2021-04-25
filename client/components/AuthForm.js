@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import { Link } from "react-router-dom"
 
 /**
  * COMPONENT
@@ -9,25 +10,37 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
+    <div className="auth-body">
+    <div className="auth-container">
+      <form id="form" className="form" onSubmit={handleSubmit} name={name}>
+      <h2>{displayName}</h2>
+      <h5>Enter Login details to get access</h5>
+        <div className="form-control">
           <label htmlFor="username">
-            <small>Username</small>
+            Username
           </label>
-          <input name="username" type="text" />
+          <input id="username" name="username" type="text" placeholder="Username/ Email address" />
+
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="password">
-            <small>Password</small>
+           Password
           </label>
-          <input name="password" type="password" />
+          <input id="password" name="password" type="password" placeholder="Enter password" />
+
+        </div>
+        <div class="redirect-link">
+
+          <h5>Don't have an account? <Link to="/signup">Sign Up</Link> here. </h5>
         </div>
         <div>
           <button type="submit">{displayName}</button>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
+        <div className="error-message">
+      {error && error.response && <div> {error.response.data} </div>}
+        </div>
       </form>
+    </div>
     </div>
   )
 }
@@ -67,5 +80,6 @@ const mapDispatch = dispatch => {
   }
 }
 
+// These are exported to the Routes page as single components
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)

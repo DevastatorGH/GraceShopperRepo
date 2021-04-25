@@ -1,5 +1,10 @@
 # FS-App-Template
 
+## Design
+
+@material-ui/core
+@material-ui/icons
+
 ## Setup
 
 To use this as boilerplate, you'll need to take the following steps:
