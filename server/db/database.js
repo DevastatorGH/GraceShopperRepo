@@ -20,6 +20,10 @@ if(process.env.DATABASE_URL){
   };
 }
 
+// {logging: false // so we don't see all the SQL queries getting made} -> option to add to line 26
+// Maybe also take out config
+
 const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, config)
 module.exports = db
+
