@@ -21,7 +21,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <Link to="/products" component={AllProducts}>Products</Link>
+          <Link to="/products">Products</Link>
           <Link to="/about">About</Link>
           {/* <span class="material-icons white600">shopping_cart</span> */}
         </div>

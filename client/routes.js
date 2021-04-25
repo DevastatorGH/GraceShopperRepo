@@ -26,15 +26,18 @@ class Routes extends Component {
 
           <div>
             <Route path="/home" component={AllProducts} />
-            <Route path='/products/:productId' component={SingleProduct} />
+            <Route exact path='/products' component={AllProduct} />
+            <Route exact path='/products/:id' component={SingleProduct} />
             {/* <Route path="/home" component={AllProducts} /> */}
           </div>
         ) : (
-          <Switch>
+        <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-          </Switch>
+            <Route exact path="/products" component={AllProducts} />
+            <Route exact path='/products/:id' component={SingleProduct} />
+        </Switch>
         )}
       </div>
     )
