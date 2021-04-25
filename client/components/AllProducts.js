@@ -26,7 +26,7 @@ export class AllProducts extends React.Component {
         </ul>
       </div>
     ) : (
-      "hi"
+      "AllProducts IS NOT RENDERING"
     );
   }
 }

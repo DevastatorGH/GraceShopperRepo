@@ -2,10 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import AllProducts from "./AllProducts"
+
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>Grace Shopper Project</h1>
     <nav>
       {isLoggedIn ? (
         <div>
@@ -20,10 +21,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/products" component={AllProducts}>Products</Link>
+          <Link to="/about">About</Link>
+          {/* <span class="material-icons white600">shopping_cart</span> */}
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

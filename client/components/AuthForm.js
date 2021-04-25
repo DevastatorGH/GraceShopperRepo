@@ -11,7 +11,7 @@ const AuthForm = props => {
 
   return (
     <div className="auth-body">
-    <div className="container">
+    <div className="auth-container">
       <form id="form" className="form" onSubmit={handleSubmit} name={name}>
       <h2>{displayName}</h2>
       <h5>Enter Login details to get access</h5>
