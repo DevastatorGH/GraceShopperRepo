@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+/* means for everything add box-sizing for all projects so no padding will effect the width of the elemen */
+* {
+  box-sizing: border-box;
+}
+
+/* Nav Bar Styles  */
 body {
   font-family: 'Open Sans', sans-serif;
 }
@@ -8,19 +14,17 @@ a {
   text-decoration: none;
 }
 nav {
-  background-color: darkolivegreen;
+  background-color: rgb(153, 168, 125);
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
 }
+/* End Nav Bar Styles */
 
-/*  * means for everything add box-sizing for all projects so no padding will effect the width of the elemen */
-* {
-  box-sizing: border-box;
-}
 
+/* Authentication Page Styles */
 .auth-body{
   /* background-color: #f9fafb; */
   background-image: url(https://source.unsplash.com/4HG3Ca3EzWw/1600x900);
@@ -43,11 +47,11 @@ nav a {
   height: 500px;
 }
 
-h2 {
+.auth-container h2 {
   text-align: center;
   margin: 0 0 20px;
 }
-h5 {
+.auth-container h5 {
   text-align: center
 }
 
@@ -105,8 +109,34 @@ h5 {
   width: 100%;
 
 }
+/* END Authentication Page Styles */
 
-ul {
+/* All Products View Styles */
+.row ul li {
+  list-style: none;
+  text-align: center;
+}
+
+/* END All Products View Styles */
+
+/* Single Product View Styles  */
+.row {
+  display:flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 75px;
+}
+
+.btn {
+  margin-top: 40px;
+  margin-left: 25px;
+}
+/* END Single Product Styles */
+
+
+/* Uncertain */
+/* ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -133,4 +163,4 @@ li a:hover {
 .material-icons.white600 {
   color: whitesmoke;
   text-align: right;
-}
+} */
