@@ -18,23 +18,22 @@ const setOrder = order =>({type: SET_ORDER, order})
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
-  const token = window.localStorage.getItem(TOKEN)
-  if (token) {
-    const res = await axios.get("/auth/me", {
-      headers: {
-        authorization: token
-      }
-    })
-    return dispatch(setAuth(res.data))
-  }
-}
+// export const me = () => async dispatch => {
+//   const token = window.localStorage.getItem(TOKEN)
+//   if (token) {
+//     const res = await axios.get("/auth/me", {
+//       headers: {
+//         authorization: token
+//       }
+//     })
+//     return dispatch(setAuth(res.data))
+//   }
+// }
 
 export const fetchOrder = (id) => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
-  console.log(token, "token from thunk")
   if(token) {
-    const res = await axios.get(`/${id}/order`, {
+    const res = await axios.get(`products/${id}/order`, {
       headers: {
         authorization: token
       }
@@ -47,7 +46,7 @@ export const authenticate = (username, password, method) => async dispatch => {
   try {
     const res = await axios.post(`/auth/${method}`, { username, password })
     window.localStorage.setItem(TOKEN, res.data.token)
-    dispatch(me())
+    //dispatch(me())
   } catch (authError) {
     return dispatch(setAuth({ error: authError }))
   }

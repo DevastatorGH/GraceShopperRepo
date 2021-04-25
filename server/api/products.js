@@ -48,10 +48,9 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/:id/order', /*requireToken,*/ async (req, res, next) => {
   try {
-    console.log(req.params.userId, 'IDIDID')
-    if (req.user.id !== req.params.id) {
-      throw new Error('Unauthorized');
-    }
+    // if (req.user.id !== req.params.id) {
+    //   throw new Error('Unauthorized');
+    // }
 
     const order = await Order.findOne({
       where: {
@@ -59,17 +58,21 @@ router.get('/:id/order', /*requireToken,*/ async (req, res, next) => {
         orderStatus: 'pending'
       }
     });
-    const productOrder = await productOrder.findAll({
+    console.log(order.prototype, 'order')
+    console.log(productOrder.prototype)
+  
+    const product_order = await productOrder.findAll({
       where: {
-        orderId: order.id
+        orderId: order.dataValues.id
       }
     })
+  
     const products = await Product.findAll({
       where: {
         id: productOrder.productId
       }
     })
-    res.send({order, productOrder, products})
+    res.send({order, product_order, products})
   } catch (error) {
       next(error)
   }

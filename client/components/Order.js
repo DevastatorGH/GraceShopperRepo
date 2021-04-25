@@ -3,22 +3,33 @@ import { connect } from "react-redux"
 import { fetchOrder } from "../store/auth"
 
 
-// export class Order extends React.Component {
-//     componentDidMount() {
-//         this.props.getOrder()
-//     }
+export class Order extends React.Component {
+    componentDidMount() {
+        this.props.getOrder()
+    }
 
-//     render() {
-//         const order = this.props.order
+    render() {
+        const order = this.props.order
 
-//         return order ? (
-//             <div>
-//                 <ul>
+        return order ? (
+            <div>
+                <ul>
 
-//                 </ul>
+                </ul>
 
-//             </div>
-//         )
-//     }
-// }
+            </div>
+        )
+    }
+}
 
+const mapState = (state) => {
+    return { order: state.order };
+  };
+  
+  const mapDispatch = (dispatch, { history }) => {
+    return {
+      getOrder: () => dispatch(fetchOrder(),
+    };
+  };
+  
+  export default connect(mapState, mapDispatch)(Order);
