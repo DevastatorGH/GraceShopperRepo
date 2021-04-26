@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSingleProduct } from '../store/singleProduct';
+import { fetchAddProduct } from '../store/cart';
 
 const styles = {
   card: {
@@ -10,24 +11,34 @@ const styles = {
 
 export class SingleProduct extends React.Component {
   constructor(props) {
-    console.log('inside constructor function,', props);
     super(props);
+    this.state = {
+      quantity: 1
+    }
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
+
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    //    const id = this.props.match.params.productId;
-    console.log('Single Product Component Did Mount product id', id);
     this.props.getSingleProduct(id);
   }
 
-  render() {
-    console.log('inside render', this.props);
-    console.log('second render', this.props.product);
-    console.log(this.props.product.singleProduct);
+  handleClick(id, price){
+    this.props.addProduct(id, Number(this.state.quantity), price)
+  }
 
+  handleChange(event){
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  render() {
     const product = this.props.product.singleProduct;
-    console.log('props:', product);
+   console.log(product, 'inventory')
     return (
       <div className="container">
       <div className="row s_product_inner">
@@ -46,13 +57,13 @@ export class SingleProduct extends React.Component {
              <p>{product.description}</p>
              <div className="card-area">
                <div className="product_count_button">
-               <span class="material-icons">remove_circle_outline</span>
+               {/* <span className="material-icons">remove_circle_outline</span> */}
 
-               <input className="input-number" type="text" value="1" min="0" max="10"></input>
-               <span class="material-icons">add_circle_outline</span>
+               <input name="quantity" onChange={this.handleChange} className="input-number" type="number" value={this.state.quantity} min={1} max={product.inventory}></input>
+               {/* <span className="material-icons">add_circle_outline</span> */}
                </div>
                 <div className="add_to_card">
-                  <button className="btn btn-warning" type="button">ADD TO CART</button>
+                  <button onClick={() => this.handleClick(product.id, product.price)} className="btn btn-warning" type="button">ADD TO CART</button>
                  </div>
                  <div className="social_icon">
                   <i className="ti-facebook"></i>
@@ -86,6 +97,7 @@ const mapState = (product) => ({
 const mapDispatch = (dispatch, { history }) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
+    addProduct: (id, quantity, price) => dispatch(fetchAddProduct(id, quantity, price))
   };
 };
 

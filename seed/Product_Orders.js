@@ -1,5 +1,5 @@
 const product_orders = [
-  { quantity: 4, priceSnapshot: 25196, orderId: 4, productId: 1 }
+  { quantity: 4, priceSnapshot: 25196 }
 ]
 // {"quantity":8,"priceSnapshot":12201},
 // {"quantity":5,"priceSnapshot":24938},

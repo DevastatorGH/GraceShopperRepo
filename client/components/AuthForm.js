@@ -29,7 +29,7 @@ const AuthForm = props => {
           <input id="password" name="password" type="password" placeholder="Enter password" />
 
         </div>
-        <div class="redirect-link">
+        <div className="redirect-link">
 
           <h5>Don't have an account? <Link to="/signup">Sign Up</Link> here. </h5>
         </div>

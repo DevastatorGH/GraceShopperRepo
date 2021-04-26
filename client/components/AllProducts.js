@@ -9,7 +9,6 @@ export class AllProducts extends React.Component {
   }
 
   render() {
-    console.log("All Products Component", this.props);
     const products = this.props.products;
 
     return products && products.length > 0 ? (
