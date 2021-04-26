@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Order } = require("../../client/components/Order");
+// const { Order } = require("../../client/components/Order");
 const OrderModel = require("../db/models/order");
 const Product = require("../db/models/product");
 const User = require("../db/models/user");
@@ -79,18 +79,51 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-//cart
-// router.get('/guest/cart', async (req, res, next) => {
-//}
+router.get('/guest/:cart', async (req, res, next) => {
+  console.log(req.params.cart, 'inside route')
+  let cart = JSON.parse(req.params.cart);
+  try {
+    let products = [];
+    let totalItems = 0
+    let totalPrice = 0;
+    
+    for(let i = 0; i < cart.length; i++){
+      let obj = cart[i];
+      let id = Object.keys(obj)[0];
+      id = Number(id)
+      let product = await Product.findByPk(id);
+      totalItems += obj[id];
+      totalPrice += product.price * obj[String(id)];
+      products.push({'product': product, 'quantity': obj[String(id)]});
+    }
+    res.json({'products': products, 'totalItems': totalItems, 'totalPrice': totalPrice})
+  } catch (error) {
+    next(error);
+  }
+})
 
-//return all products in the cart + order
-// router.get('/user/cart', async (req, res, next) => {
-//1. get an order by user's id
-//2. get all productOrders by the order.id
-//3.for each productOrder use a method getProduct() => push it to an array of products
-//4. get products => productOrder.getProducts()
-//5. return all products and the order
-// }
+router.get('/user/cart', async (req, res, next) => {
+  try {
+    let order = await OrderModel.findOne({
+      where: {
+        userId: 1,
+        orderStatus: "pending",
+      },
+    });
+    let products = [];
+    let productOrder = await order.getProductOrders();
+    for (let i = 0; i < productOrder.length; i++){
+      
+      let id = productOrder[i].dataValues.id
+      let product = await Product.findByPk(id);
+      product.quantity = productOrder[i].dataValues.quantity
+      products.push({'product': product, 'quantity': productOrder[i].dataValues.quantity})
+    }
+    res.json({'products': products, 'totalItems': order.totalItems, 'totalPrice': order.totalPrice})
+  } catch (error) {
+    next(error);
+  }
+})
 
 //checkout
 // router.put('/checkout', async (req, res, next) => {

@@ -2,19 +2,19 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-// action creator
 const GET_CART = "GET_CART";
 
 const getCart = (cart) => {
-    return {
-        type: GET_CART,
-        cart
-    }
-}
+  return {
+    type: GET_CART,
+    cart,
+  };
+};
 
-//in component maybe? no action happens
+
 export const fetchAddProduct = (id, quantity, price) => {
   return async (dispatch) => {
+   //localStorage.removeItem('cart')
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
@@ -25,11 +25,25 @@ export const fetchAddProduct = (id, quantity, price) => {
       } else {
         if (localStorage.getItem("cart")) {
           let cart = JSON.parse(localStorage.getItem("cart"));
-          cart[`${id}`] = quantity;
+          let seen = false;
+          for (let i = 0; i < cart.length; i++) {
+            if (cart[i][`${id}`]) {
+              cart[i][`${id}`] = quantity + cart[i][`${id}`];
+              seen = true;
+            } 
+          }
+          if(!seen){
+              let obj = {};
+              obj[`${id}`] = quantity;
+              cart.push(obj);
+            seen = false
+          }
           localStorage.setItem("cart", JSON.stringify(cart));
         } else {
           let cart = [];
-          cart[`${id}`] = quantity;
+          let obj = {};
+          obj[`${id}`] = quantity;
+          cart.push(obj);
           // "[{1: 4}, {3:1}]"
           localStorage.setItem("cart", JSON.stringify(cart)); // take array stringify it and set it on local storage
         }
@@ -44,13 +58,15 @@ export const fetchGetCart = () => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
+      console.log(token);
       if (token) {
-        const { data } = await axios.put(`/api/user/cart}`);
+        const { data } = await axios.put(`/api/user/cart`);
         dispatch(getCart(data));
       } else {
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        const { data } = await axios.put(`/api/guest/cart}`, {cart});
-        dispatch(getCart(data));
+      let cart = localStorage.getItem("cart");
+      console.log(cart, "cart");
+      const { data } = await axios.get(`/api/products/guest/${cart}`);
+      dispatch(getCart(data));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
