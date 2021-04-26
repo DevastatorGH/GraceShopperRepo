@@ -7,13 +7,13 @@ const User = require('./models/user');
 const Product = require('./models/product');
 const productOrder = require('./models/productOrder');
 
-Order.belongsToMany(Product, { through: productOrder });
-Product.belongsToMany(Order, { through: productOrder });
+// Order.belongsToMany(Product, { through: productOrder });
+// Product.belongsToMany(Order, { through: productOrder });
 
-// productOrder.belongsTo(Product)
-// Product.hasMany(productOrder)
-// productOrder.belongsTo(Order)
-// Order.hasMany(productOrder)
+productOrder.belongsTo(Product)
+Product.hasMany(productOrder)
+productOrder.belongsTo(Order)
+Order.hasMany(productOrder)
 
 Order.belongsTo(User);
 
