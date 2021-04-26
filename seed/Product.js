@@ -1,28 +1,48 @@
-const products = [
-  {
-    name: "Coke - Classic, 355 Ml",
-    description:
-      "Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus. Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.",
-    price: 35387,
-    inventory: 40,
-    imageURL: "https://source.unsplash.com/random/370x240"
-  },
-  {
-    name: "Towels - Paper / Kraft",
-    description:
-      "Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    price: 34829,
-    inventory: 40,
-    imageURL: "https://source.unsplash.com/random/400x300"
-  },
-  {
-    name: "TESTING - Paper / Kraft",
-    description:
-      "Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-    price: 34829,
-    inventory: 40,
-    imageURL: "https://source.unsplash.com/random/450x370"
-  }
+const products = [{"name":"Canada Dry","description":"Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.","price":35749,"inventory":23,"imageURL":"http://dummyimage.com/127x100.png/5fa2dd/ffffff"},
+{"name":"Sauce - Oyster","description":"Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.","price":673,"inventory":18,"imageURL":"http://dummyimage.com/245x100.png/cc0000/ffffff"},
+{"name":"Knife Plastic - White","description":"Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.","price":2810,"inventory":31,"imageURL":"http://dummyimage.com/165x100.png/cc0000/ffffff"},
+{"name":"Frangelico","description":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue.","price":12735,"inventory":37,"imageURL":"http://dummyimage.com/190x100.png/ff4444/ffffff"},
+{"name":"Nectarines","description":"Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.","price":25287,"inventory":0,"imageURL":"http://dummyimage.com/158x100.png/5fa2dd/ffffff"},
+{"name":"Veal - Liver","description":"Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique.","price":35683,"inventory":36,"imageURL":"http://dummyimage.com/190x100.png/dddddd/000000"},
+{"name":"Syrup - Monin - Blue Curacao","description":"In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.","price":34461,"inventory":15,"imageURL":"http://dummyimage.com/135x100.png/cc0000/ffffff"},
+{"name":"Meldea Green Tea Liquor","description":"Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique.","price":22126,"inventory":16,"imageURL":"http://dummyimage.com/122x100.png/dddddd/000000"},
+{"name":"Chocolate Bar - Coffee Crisp","description":"Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.","price":9089,"inventory":36,"imageURL":"http://dummyimage.com/237x100.png/cc0000/ffffff"},
+{"name":"Kellogs Special K Cereal","description":"Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.","price":37130,"inventory":23,"imageURL":"http://dummyimage.com/246x100.png/cc0000/ffffff"},
+{"name":"Wine - Coteaux Du Tricastin Ac","description":"Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.","price":18018,"inventory":24,"imageURL":"http://dummyimage.com/189x100.png/ff4444/ffffff"},
+{"name":"Papayas","description":"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.","price":18952,"inventory":26,"imageURL":"http://dummyimage.com/243x100.png/cc0000/ffffff"},
+{"name":"Beef - Shank","description":"Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis.","price":33255,"inventory":3,"imageURL":"http://dummyimage.com/131x100.png/ff4444/ffffff"},
+{"name":"Tray - 12in Rnd Blk","description":"Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis.","price":37149,"inventory":20,"imageURL":"http://dummyimage.com/123x100.png/dddddd/000000"},
+{"name":"Wine - White, Schroder And Schyl","description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.","price":11122,"inventory":29,"imageURL":"http://dummyimage.com/235x100.png/cc0000/ffffff"},
+{"name":"Bagelers - Cinn / Brown Sugar","description":"Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis.","price":12338,"inventory":36,"imageURL":"http://dummyimage.com/214x100.png/dddddd/000000"},
+{"name":"Lettuce - Lambs Mash","description":"Integer ac leo.","price":12607,"inventory":6,"imageURL":"http://dummyimage.com/225x100.png/ff4444/ffffff"},
+{"name":"Watercress","description":"Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.","price":27898,"inventory":14,"imageURL":"http://dummyimage.com/187x100.png/cc0000/ffffff"},
+{"name":"Garlic Powder","description":"Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.","price":38221,"inventory":30,"imageURL":"http://dummyimage.com/136x100.png/dddddd/000000"},
+{"name":"Chocolate Bar - Oh Henry","description":"Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.","price":9477,"inventory":22,"imageURL":"http://dummyimage.com/153x100.png/cc0000/ffffff"},
+{"name":"Vinegar - Balsamic","description":"In hac habitasse platea dictumst.","price":19980,"inventory":14,"imageURL":"http://dummyimage.com/121x100.png/5fa2dd/ffffff"},
+{"name":"Wine - Chablis 2003 Champs","description":"Vestibulum sed magna at nunc commodo placerat. Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.","price":19862,"inventory":3,"imageURL":"http://dummyimage.com/146x100.png/cc0000/ffffff"},
+{"name":"Southern Comfort","description":"Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.","price":11379,"inventory":28,"imageURL":"http://dummyimage.com/227x100.png/dddddd/000000"},
+{"name":"Pur Value","description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.","price":34778,"inventory":17,"imageURL":"http://dummyimage.com/220x100.png/dddddd/000000"},
+{"name":"Cheese - Cheddarsliced","description":"Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.","price":33477,"inventory":35,"imageURL":"http://dummyimage.com/121x100.png/5fa2dd/ffffff"},
+{"name":"Fork - Plastic","description":"Etiam vel augue.","price":30959,"inventory":28,"imageURL":"http://dummyimage.com/130x100.png/dddddd/000000"},
+{"name":"Bread - Bistro Sour","description":"Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.","price":26661,"inventory":5,"imageURL":"http://dummyimage.com/222x100.png/5fa2dd/ffffff"},
+{"name":"Dc - Sakura Fu","description":"Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo.","price":34341,"inventory":30,"imageURL":"http://dummyimage.com/132x100.png/ff4444/ffffff"},
+{"name":"Wine - Chateauneuf Du Pape","description":"Sed accumsan felis. Ut at dolor quis odio consequat varius.","price":31689,"inventory":37,"imageURL":"http://dummyimage.com/245x100.png/dddddd/000000"},
+{"name":"Beef - Tongue, Fresh","description":"Suspendisse potenti.","price":29591,"inventory":7,"imageURL":"http://dummyimage.com/152x100.png/dddddd/000000"},
+{"name":"Wine - Red, Gallo, Merlot","description":"Sed ante. Vivamus tortor. Duis mattis egestas metus.","price":23958,"inventory":33,"imageURL":"http://dummyimage.com/110x100.png/5fa2dd/ffffff"},
+{"name":"Yeast - Fresh, Fleischman","description":"Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl.","price":37560,"inventory":35,"imageURL":"http://dummyimage.com/181x100.png/cc0000/ffffff"},
+{"name":"Chilli Paste, Sambal Oelek","description":"Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus.","price":16184,"inventory":26,"imageURL":"http://dummyimage.com/154x100.png/cc0000/ffffff"},
+{"name":"Cilantro / Coriander - Fresh","description":"Nam tristique tortor eu pede.","price":10092,"inventory":17,"imageURL":"http://dummyimage.com/107x100.png/5fa2dd/ffffff"},
+{"name":"Dikon","description":"Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.","price":1302,"inventory":10,"imageURL":"http://dummyimage.com/171x100.png/ff4444/ffffff"},
+{"name":"The Pop Shoppe - Cream Soda","description":"Integer a nibh.","price":33458,"inventory":39,"imageURL":"http://dummyimage.com/118x100.png/cc0000/ffffff"},
+{"name":"Anchovy Paste - 56 G Tube","description":"Nulla tellus.","price":5756,"inventory":3,"imageURL":"http://dummyimage.com/101x100.png/5fa2dd/ffffff"},
+{"name":"Red Cod Fillets - 225g","description":"Aenean fermentum. Donec ut mauris eget massa tempor convallis.","price":11520,"inventory":32,"imageURL":"http://dummyimage.com/210x100.png/ff4444/ffffff"},
+{"name":"Extract - Rum","description":"Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.","price":12041,"inventory":19,"imageURL":"http://dummyimage.com/205x100.png/5fa2dd/ffffff"},
+{"name":"Puree - Blackcurrant","description":"Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis.","price":36518,"inventory":22,"imageURL":"http://dummyimage.com/106x100.png/dddddd/000000"},
+{"name":"Sauce - Bernaise, Mix","description":"Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla.","price":39621,"inventory":3,"imageURL":"http://dummyimage.com/119x100.png/cc0000/ffffff"},
+{"name":"Wine - Pinot Noir Mondavi Coastal","description":"Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.","price":33933,"inventory":9,"imageURL":"http://dummyimage.com/130x100.png/5fa2dd/ffffff"},
+{"name":"Dried Cherries","description":"Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.","price":1107,"inventory":15,"imageURL":"http://dummyimage.com/225x100.png/ff4444/ffffff"},
+{"name":"Flour - So Mix Cake White","description":"Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.","price":23415,"inventory":3,"imageURL":"http://dummyimage.com/154x100.png/cc0000/ffffff"},
+{"name":"Turnip - White, Organic","description":"Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.","price":38975,"inventory":17,"imageURL":"http://dummyimage.com/239x100.png/cc0000/ffffff"},
 ]
 
 module.exports = products

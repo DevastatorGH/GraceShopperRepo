@@ -2,15 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchProducts } from "../store/products";
 import ProductCard from "./ProductCard";
+import Pagination from "./common/pagination"
 
 export class AllProducts extends React.Component {
+  // This is saying that each page should only have 8 products
+ state = {
+    pageSize: 5
+  };
+
   componentDidMount() {
     this.props.getProducts();
+  }
+
+  // event handler for pagaination page change
+
+
+  handlePageChange = (page) => {
+    console.log(page)
   }
 
   render() {
     console.log("All Products Component", this.props);
     const products = this.props.products;
+    const count = this.props.products.length
 
     return products && products.length > 0 ? (
       <div className="container">
@@ -26,6 +40,10 @@ export class AllProducts extends React.Component {
           })}
         </ul>
         </div>
+        <Pagination
+          itemsCount={count}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}/>
       </div>
     ) : (
       "Products are loading..."
