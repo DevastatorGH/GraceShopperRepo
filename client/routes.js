@@ -7,6 +7,7 @@ import Home from "./components/home"
 import { me } from "./store"
 import AllProducts from "./components/AllProducts"
 import SingleProduct from './components/SingleProduct';
+import AllUsers from './components/AllUsers'
 
 
 /**
@@ -19,18 +20,28 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props
+    const isAdmin = this.props.isAdmin
+    console.log(isAdmin, "admin")
+
 
     return (
       <div>
-        {isLoggedIn ? (
-
+        { 
+        isAdmin ? (
+          <div>
+          <Route path="/home" component={AllProducts} />
+            <Route exact path='/products' component={AllProducts} />
+            <Route exact path='/products/:id' component={SingleProduct} />
+            <Route path = "/users" component={AllUsers} />
+            </div>
+        ) : (
+        isLoggedIn ? (
           <div>
             <Route path="/home" component={AllProducts} />
             <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/:id' component={SingleProduct} />
-            {/* <Route path="/home" component={AllProducts} /> */}
           </div>
-        ) : (
+        ) : ( 
         <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/login" component={Login} />
@@ -38,10 +49,10 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path='/products/:id' component={SingleProduct} />
         </Switch>
-        )}
+        ))}
       </div>
     )
-  }
+        }
 }
 
 /**
@@ -51,7 +62,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin
   }
 }
 
