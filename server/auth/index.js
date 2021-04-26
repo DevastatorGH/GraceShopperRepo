@@ -13,7 +13,6 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    console.log(req.body, 'LINE 16 AUTH')
     const user = await User.create(req.body)
     res.send({token: await user.generateToken()})
   } catch (err) {
