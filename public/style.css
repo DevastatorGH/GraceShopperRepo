@@ -15,11 +15,16 @@ a {
 }
 nav {
   background-color: rgb(153, 168, 125);
+  display: flex;
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+nav li {
+  list-style: none;
 }
 /* End Nav Bar Styles */
 

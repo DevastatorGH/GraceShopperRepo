@@ -63,7 +63,10 @@ export class SingleProduct extends React.Component {
                {/* <span className="material-icons">add_circle_outline</span> */}
                </div>
                 <div className="add_to_card">
-                  <button onClick={() => this.handleClick(product.id, product.price)} className="btn btn-warning" type="button">ADD TO CART</button>
+                  <button
+                      onClick={() => this.handleClick(product.id, product.price)}
+                      className="btn btn-warning"
+                      type="button">ADD TO CART</button>
                  </div>
                  <div className="social_icon">
                   <i className="ti-facebook"></i>
