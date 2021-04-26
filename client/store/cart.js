@@ -45,11 +45,11 @@ export const fetchGetCart = () => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data } = await axios.put(`/api/guest/cart}`);
+        const { data } = await axios.put(`/api/user/cart}`);
         dispatch(getCart(data));
       } else {
         let cart = JSON.parse(localStorage.getItem("cart"));
-        const { data } = await axios.put(`/api/customer/cart}`, {cart});
+        const { data } = await axios.put(`/api/guest/cart}`, {cart});
         dispatch(getCart(data));
       }
     } catch (error) {

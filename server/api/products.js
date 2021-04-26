@@ -53,6 +53,7 @@ router.put("/:id", async (req, res, next) => {
       });
       user.addOrder(order);
     } else {
+      //update total sum
       order.update({ totalItems: order.totalItems + req.body.quantity });
     }
 
@@ -63,6 +64,7 @@ router.put("/:id", async (req, res, next) => {
     });
 
     if (oldProductOrder) {
+      //not to forget
       await oldProductOrder.update(req.body);
     } else {
       const newProductOrder = await productOrder.create(req.body);
@@ -96,7 +98,7 @@ router.put("/:id", async (req, res, next) => {
 //else
 //1.create a new user
 //2.create a new order
-//user.addOrder(order)
+//user.setOrder(order)
 //3.create newProductOrder => product_order
 //2. for all products from local storage => newProductOrder.setOrder(order)
 //newProductOrder.setProduct(product)
