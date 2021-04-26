@@ -1,19 +1,34 @@
-// import React from "react";
-// import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchGetCart } from '../store/cart';
 
-// export class Order extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
+export class Order extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-//   render() {
-//     const cart = this.props.cart;
-//     return <div></div>;
-//   }
-// }
 
-// const mapState = (cart) => ({
-//   cart,
-// });
+  componentDidMount() {
+    this.props.getCart();
+  }
 
-// export default connect(mapState, null)(Order);
+  render() {
+    
+    return (
+      <div></div>
+    );
+  }
+}
+
+const mapState = (cart) => ({
+    cart,
+  });
+  
+  
+  const mapDispatch = (dispatch) => {
+      return {
+        getCart: () => dispatch(fetchGetCart()),
+      };
+    };
+
+export default connect(mapState, mapDispatch)(Order)
