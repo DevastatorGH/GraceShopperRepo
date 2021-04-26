@@ -2,7 +2,6 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-// action creator
 const GET_CART = "GET_CART";
 
 const getCart = (cart) => {
@@ -12,7 +11,7 @@ const getCart = (cart) => {
   };
 };
 
-//in component maybe? no action happens
+
 export const fetchAddProduct = (id, quantity, price) => {
   return async (dispatch) => {
    //localStorage.removeItem('cart')
@@ -35,12 +34,8 @@ export const fetchAddProduct = (id, quantity, price) => {
           }
           if(!seen){
               let obj = {};
-              console.log(cart)
               obj[`${id}`] = quantity;
-              console.log(obj)
-
               cart.push(obj);
-              console.log(cart)
             seen = false
           }
           localStorage.setItem("cart", JSON.stringify(cart));
@@ -64,15 +59,15 @@ export const fetchGetCart = () => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       console.log(token);
-      // if (token) {
-      //   const { data } = await axios.put(`/api/user/cart}`);
-      //   dispatch(getCart(data));
-      // } else {
+      if (token) {
+        const { data } = await axios.put(`/api/user/cart`);
+        dispatch(getCart(data));
+      } else {
       let cart = localStorage.getItem("cart");
       console.log(cart, "cart");
       const { data } = await axios.get(`/api/products/guest/${cart}`);
       dispatch(getCart(data));
-      //}
+      }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
     }
