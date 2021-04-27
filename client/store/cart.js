@@ -3,6 +3,7 @@ import axios from "axios";
 const TOKEN = "token";
 
 const GET_CART = "GET_CART";
+const ADD_TO_CART = "ADD_TO_CART"
 
 const getCart = (cart) => {
   return {
@@ -11,6 +12,12 @@ const getCart = (cart) => {
   };
 };
 
+const addToCart = (product) => {
+  return {
+    type: ADD_TO_CART,
+    product
+  }
+}
 
 export const fetchAddProduct = (id, quantity, price) => {
   return async (dispatch) => {
@@ -30,7 +37,7 @@ export const fetchAddProduct = (id, quantity, price) => {
             if (cart[i][`${id}`]) {
               cart[i][`${id}`] = quantity + cart[i][`${id}`];
               seen = true;
-            } 
+            }
           }
           if(!seen){
               let obj = {};
@@ -74,12 +81,15 @@ export const fetchGetCart = () => {
   };
 };
 
-const initialState = {};
+const initialState = {
+};
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case ADD_TO_CART:
+        return action.product
     default:
       return state;
   }
