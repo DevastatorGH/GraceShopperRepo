@@ -1,18 +1,31 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
-import { fetchGetCart } from "../store/cart"
+import { fetchGetCart, fetchCheckout } from "../store/cart"
 import { fetchProducts } from "../store/products"
 import Checkout from "./demoCheckout"
+
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getCart()
     this.props.getProducts()
+  }
+
+  handleClick(){
+
+         if(this.props.auth.id){
+          this.props.checkout()
+          this.props.history.push("/completedOrder")
+         } else {
+          this.props.history.push("/form")
+         }
+
   }
 
   render() {
@@ -64,12 +77,7 @@ class Cart extends React.Component {
         <h1>Total Products: {totalProducts}</h1>
         <h1>Order Total: ${(totalPrice/1000).toFixed(2)}</h1>
         </div>
-          {/* On Click move to checkout component and pass down products and cart as props  */}
-           {/* <Link to="/checkout">Checkout</Link> */}
-           {/* <button type="submit" className="btn btn-primary checkout"onClick={this.handleClick}>Checkout</button> */}
-        <div className="flex-item-right">
-          <Checkout cartItems={this.props.cart} productItems={this.props.products}/>
-        </div>
+           <button type="submit" className="btn btn-primary checkout"onClick={this.handleClick}>Checkout</button>
       </div>
     )
   }
@@ -77,13 +85,15 @@ class Cart extends React.Component {
 
 const mapState = state => ({
   cart: state.cart,
-  products: state.products
+  products: state.products,
+  auth: state.auth
 })
 
 const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchGetCart()),
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    checkout: () => dispatch(fetchCheckout())
   }
 }
 

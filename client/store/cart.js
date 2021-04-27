@@ -93,22 +93,36 @@ export const fetchGetCart = () => {
   };
 };
 
-export const fetchCheckout = () => {
+const CLEAR_CART = "CLEAR_CART"
+
+const clearCart = () => {
+  return {
+    type: CLEAR_CART,
+    cart: []
+  }
+}
+
+
+
+export const fetchCheckout = (userInfo) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data } = await axios.get(`/api/products/user/cart/checkout`, {
+        const { data } = await axios.put(`/api/products/checkout`, {
           headers: {
             authorization: token,
           },
+          userInfo: {
+            userInfo,
+          }
         });
-        //dispatch(clear(data));
+        dispatch(clear(data));
       } else {
         let cart = localStorage.getItem("cart");
-        const { data } = await axios.put(`/api/products/guest/checkout`, { cart });
+        const { data } = await axios.put(`/api/products/guest/checkout`, { cart, userInfo });
         localStorage.removeItem("cart");
-        //dispatch(clear(data));
+        dispatch(clear(data));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
@@ -141,6 +155,8 @@ export default function cartReducer(state = initialState, action) {
       } else {
         return [...state, action.productOrder]
       }
+    case CLEAR_CART:
+      return action.cart
     default:
       return state;
   }

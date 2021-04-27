@@ -15,7 +15,7 @@ const requireToken = async (req, res, next) => {
     } else {
       token = req.headers.authorization;
     }
-    
+
     const user = await User.findByToken(token);
     req.user = user;
     next();
@@ -78,7 +78,7 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
           productId: req.params.id
         },
       });
-  
+
       if (productOrder) {
         productOrder = await productOrder.update({quantity: req.body.orderDetails.quantity + productOrder.quantity, priceSnapshot: req.body.orderDetails.price});
       } else {
@@ -102,7 +102,7 @@ router.get("/user/cart", requireToken, async (req, res, next) => {
           orderStatus: "pending",
         },
       });
-      
+
       console.log(await order.getProductOrders())
       res.send(await order.getProductOrders());
     }
@@ -111,9 +111,11 @@ router.get("/user/cart", requireToken, async (req, res, next) => {
   }
 });
 
-router.put("/user/cart/checkout", requireToken, async (req, res, next) => {
+router.put("/checkout", requireToken, async (req, res, next) => {
+  console.log("In Put Route Line 115")
   try {
     if (req.user) {
+
     let order = await OrderModel.findOne({
       where: {
         userId: req.user.id,
@@ -123,21 +125,17 @@ router.put("/user/cart/checkout", requireToken, async (req, res, next) => {
     order = await order.update({ orderStatus: "processed" });
     let productOrder = await order.getProductOrders();
     for (let i = 0; i < productOrder.length; i++) {
-      let id = productOrder[i].dataValues.id;
+      let id = productOrder[i].dataValues.productId;
       let product = await Product.findByPk(id);
-      products.push({
-        product: product,
-        quantity: productOrder[i].dataValues.quantity,
-      });
+       await product.update({inventory: product.inventory - productOrder.quantity})
     }
-    res.json(
-      order.getProductOrders()
-    );
+   res.end()
   }
   } catch (error) {
     next(error);
   }
 });
+
 
 //checkout
 // router.put('/checkout', async (req, res, next) => {
