@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const TOKEN = 'token';
+
 const GET_PRODUCT = 'GET_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
@@ -28,10 +30,13 @@ const deleteProduct = (product) => {
 export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
-      console.log('Inside Fetch Single Product', id);
-      const { data } = await axios.get(`/api/products/${id}`);
-      console.log('Data return from fetchSingleProduct', data);
-      dispatch(getProduct(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        console.log('Inside Fetch Single Product', id);
+        const { data } = await axios.get(`/api/products/${id}`);
+        console.log('Data return from fetchSingleProduct', data);
+        dispatch(getProduct(data));
+      }
     } catch (error) {
       console.log('There was an error with Fetching Single Product', error);
     }
@@ -42,8 +47,14 @@ export const fetchUpdateProduct = (product, history) => {
   return async (dispatch) => {
     console.log('product:', product);
     try {
-      const { data } = await axios.put(`/api/products/${product.id}`, product);
-      dispatch(updateProduct(data));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.put(
+          `/api/products/${product.id}`,
+          product
+        );
+        dispatch(updateProduct(data));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -53,8 +64,11 @@ export const fetchUpdateProduct = (product, history) => {
 export const fetchDeleteProduct = (id, history) => {
   return async (dispatch) => {
     try {
-      const { data: product } = await axios.delete(`/api/products/${id}`);
-      dispatch(deleteProduct(product));
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: product } = await axios.delete(`/api/products/${id}`);
+        dispatch(deleteProduct(product));
+      }
     } catch (error) {
       console.log(error);
     }

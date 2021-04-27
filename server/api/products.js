@@ -24,6 +24,24 @@ const requireToken = async (req, res, next) => {
   }
 };
 
+const admin = async (req, res, next) => {
+  let token;
+  if (req.body.headers) {
+    token = req.body.headers.authorization;
+  } else {
+    token = req.headers.authorization;
+  }
+  const user = await User.findByToken(token);
+  req.user = user;
+  console.log('req user', req.user);
+  if (user.isAdmin) {
+    next();
+  } else {
+    console.log('Not Authorized!');
+    alert('Not Authorized!');
+  }
+};
+
 router.get('/', async (req, res, next) => {
   try {
     const allProducts = await Product.findAll();
@@ -33,7 +51,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, admin, async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
     res.json(newProduct);
@@ -149,7 +167,7 @@ router.put('/user/cart/checkout', requireToken, async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, admin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.update(req.body);
@@ -159,7 +177,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, admin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     if (product) {

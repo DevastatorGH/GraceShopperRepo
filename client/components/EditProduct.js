@@ -59,6 +59,27 @@ export class EditProduct extends React.Component {
             onChange={this.handleChange}
             value={this.state.name}
           />
+          <label htmlFor='description'>New Description</label>
+          <input
+            name='description'
+            type='text'
+            onChange={this.handleChange}
+            value={this.state.description}
+          />
+          <label htmlFor='price'>New Price</label>
+          <input
+            name='price'
+            type='text'
+            onChange={this.handleChange}
+            value={this.state.price}
+          />
+          <label htmlFor='imageURL'>New Image URL</label>
+          <input
+            name='imageURL'
+            type='text'
+            onChange={this.handleChange}
+            value={this.state.imageURL}
+          />
           <button type='submit'>Submit</button>
         </form>
         <form onSubmit={(ev) => ev.preventDefault()}>
