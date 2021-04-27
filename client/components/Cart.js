@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { fetchGetCart } from "../store/cart"
 import { fetchProducts } from "../store/products"
+import Checkout from "./demoCheckout"
 
 class Cart extends React.Component {
   constructor(props) {
@@ -21,9 +22,9 @@ class Cart extends React.Component {
     console.log("Our Cart", this.props.cart)
     console.log("Products", this.props.products)
     return (
-      <div>
+      <div className="main-cart-checkout">
         <h1>My Cart</h1>
-        <div>
+        <div className="flex-item-left">
           {this.props.products.length > 0 ?
            this.props.cart.map(productOrder => {
 
@@ -63,11 +64,11 @@ class Cart extends React.Component {
         <h1>Total Products: {totalProducts}</h1>
         <h1>Order Total: ${(totalPrice/1000).toFixed(2)}</h1>
         </div>
-
-        <div>
-        <button className="btn btn-primary checkout">
-          <Link to="/checkout">Checkout</Link>
-        </button>
+          {/* On Click move to checkout component and pass down products and cart as props  */}
+           {/* <Link to="/checkout">Checkout</Link> */}
+           {/* <button type="submit" className="btn btn-primary checkout"onClick={this.handleClick}>Checkout</button> */}
+        <div className="flex-item-right">
+          <Checkout cartItems={this.props.cart} productItems={this.props.products}/>
         </div>
       </div>
     )

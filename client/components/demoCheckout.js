@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { connect } from "react-redux"
+import { fetchGetCart } from "../store/cart"
+import { fetchProducts } from "../store/products"
 
 function Copyright() {
   return (
@@ -79,7 +82,9 @@ function getStepContent(step) {
   }
 }
 
-export default function demoCheckout() {
+
+export default function Checkout(props) {
+  console.log("Checkout props", props)
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -97,7 +102,7 @@ export default function demoCheckout() {
       <AppBar position="absolute" color="default" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Order Checkout - Thanks for shopping with us!
+            Thank You For Shopping With Us!
           </Typography>
         </Toolbar>
       </AppBar>
@@ -151,3 +156,17 @@ export default function demoCheckout() {
     </React.Fragment>
   );
 }
+
+// const mapState = state => ({
+//   cart: state.cart,
+//   products: state.products
+// })
+
+// const mapDispatch = dispatch => {
+//   return {
+//     getCart: () => dispatch(fetchGetCart()),
+//     getProducts: () => dispatch(fetchProducts())
+//   }
+// }
+
+// export default connect(mapState, mapDispatch)(Checkout)

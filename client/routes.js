@@ -8,7 +8,7 @@ import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import AllUsers from './components/AllUsers';
 import EditProduct from './components/EditProduct';
-import demoCheckout from './components/demoCheckout';
+import Checkout from './components/demoCheckout';
 import Cart from './components/Cart'
 
 
@@ -41,6 +41,7 @@ class Routes extends Component {
             <Route exact path="/products" component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart}/>
             <Route exact path='/products/:id' component={SingleProduct} />
+            <Route exact path='/products/user/cart/checkout' component={Checkout}/>
 
           </div>
         ) : (
@@ -53,7 +54,7 @@ class Routes extends Component {
             <Route exact path='/products/:id' component={SingleProduct} />
             <Route exact path='/cart' component={Cart}/>
             <Route exact path='/products/guest/cart' component={Cart}/>
-            <Route exact path='/checkout' component={demoCheckout}/>
+            <Route exact path='/checkout' component={Checkout}/>
           </Switch>
         )}
       </div>
