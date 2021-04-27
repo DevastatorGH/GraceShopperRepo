@@ -1,24 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchUpdateProduct, fetchDeleteProduct } from '../store/singleProduct';
+import {
+  fetchSingleProduct,
+  fetchUpdateProduct,
+  fetchDeleteProduct,
+} from '../store/singleProduct';
 
 export class EditProduct extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { id: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.handleClick = this.handleClick.bind(this);
   }
 
-  //   componentDidUpdate(prevProps) {
-  //     console.log();
-  //     if (prevProps.product.id !== this.props.product.id) {
-  //       this.setState({
-  //         name: this.props.product.name || '',
-  //       });
-  //     }
+  //   componentDidMount() {
+  //     const id = this.props.match.params.id;
+  //     this.props.getProduct(id);
   //   }
+
+  componentDidUpdate(prevProps) {
+    console.log('prevProps:', prevProps);
+    console.log('this props', this.props);
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.setState({
+        name: this.props.product.name || '',
+      });
+    }
+  }
 
   handleChange(event) {
     this.setState({
@@ -27,26 +37,31 @@ export class EditProduct extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateProduct({ ...this.props.product, ...this.state });
+    this.props.updateProduct({ ...this.props.match.params.id, ...this.state });
   }
 
   render() {
-    const { handleChange, handleSubmit } = this;
-    const product = this.props.product;
-    const { name } = this.state;
+    //const { handleChange, handleSubmit } = this;
+    //const product = this.props.product;
+    //const { name } = this.state;
     return (
       <div>
         <h3>Update Product Here</h3>
-        <form id='product-form' onSubmit={handleSubmit}>
+        <form id='product-form' onSubmit={this.handleSubmit}>
           <label htmlFor='name'>New Product Name</label>
-          <input name='name' onChange={handleChange} value={name} />
+          <input
+            name='name'
+            type='text'
+            onChange={this.handleChange}
+            value={this.state.name}
+          />
           <button type='submit'>Submit</button>
         </form>
         <form onSubmit={(ev) => ev.preventDefault()}>
           <button
             type='submit'
             onClick={() => {
-              this.props.deleteProduct(this.props.match.params.productId);
+              this.props.deleteProduct(this.props.match.params.id);
             }}
           >
             Delete
@@ -63,8 +78,11 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
+  //   getProduct: (id) => dispatch(fetchSingleProduct(id)),
   updateProduct: (product) => dispatch(fetchUpdateProduct(product, history)),
   deleteProduct: (product) => dispatch(fetchDeleteProduct(product, history)),
 });
 
 export default connect(mapState, mapDispatch)(EditProduct);
+
+//

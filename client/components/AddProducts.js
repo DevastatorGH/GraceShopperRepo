@@ -20,7 +20,7 @@ export class AddProducts extends React.Component {
     this.props.addProduct({ ...this.state });
   }
   render() {
-    const { name, description, price } = this.state;
+    const { name, description, price, imageURL } = this.state;
     const { handleSubmit, handleChange } = this;
 
     return (
@@ -36,6 +36,8 @@ export class AddProducts extends React.Component {
           />
           <label htmlFor='price'>Product Price</label>
           <input name='price' onChange={handleChange} value={price} />
+          <label htmlFor='imageURL'>Image URL</label>
+          <input name='imageURL' onChange={handleChange} value={imageURL} />
           <button type='submit'>Submit Product</button>
           <Link to='/'>Cancel</Link>
         </form>
