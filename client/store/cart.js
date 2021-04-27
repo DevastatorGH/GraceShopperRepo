@@ -117,17 +117,23 @@ export default function cartReducer(state = initialState, action) {
     case GET_CART:
       return action.cart;
     case ADD_PRODUCT:
-      let newState = state.filter((productOrder) => {
-        if (productOrder.id === action.productOrder.id) {
-          return action.productOrder;
-        } else {
-          productOrder;
+      if(state.length > 0){
+        let idFound = false;
+        let newState = state.map((productOrder) => {
+          if (productOrder.id === action.productOrder.id) {
+            idFound = true;
+            return action.productOrder;
+          } else {
+            return productOrder;
+          }
+        });
+        if (!idFound) {
+          newState.push(action.productOrder);
         }
-      });
-      if (newState.length < state.length) {
-        newState.push(action.productOrder);
+        return newState;
+      } else {
+        return [...state, action.productOrder]
       }
-      return newState;
     default:
       return state;
   }

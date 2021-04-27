@@ -54,7 +54,7 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
       const user = req.user;
       const product = await Product.findByPk(req.params.id);
 
-      let [order] = await OrderModel.findOrCreate({
+      let [order, isCreated] = await OrderModel.findOrCreate({
         where: {
           userId: user.id,
           orderStatus: "pending",
@@ -68,57 +68,30 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
         totalItems: order.totalItems + req.body.orderDetails.quantity,
       });
 
-      user.addOrder(order);
-
-      let [productOrder] = await ProductOrder.findOrCreate({
+      if(isCreated){
+        user.addOrder(order);
+      }
+      console.log(req.params.id)
+      let productOrder = await ProductOrder.findOne({
         where: {
           orderId: order.id,
+          productId: req.params.id
         },
       });
-
-      productOrder = await productOrder.update({
-        quantity: req.body.orderDetails.quantity + productOrder.quantity,
-        priceSnapshot: req.body.orderDetails.priceSnapshot,
-      });
-
-      productOrder.setOrder(order);
-      productOrder.setProduct(product);
-
-      product.update({ inventory: product.inventory });
-      console.log(productOrder);
-      res.json(product);
+  
+      if (productOrder) {
+        productOrder = await productOrder.update({quantity: req.body.orderDetails.quantity + productOrder.quantity, priceSnapshot: req.body.orderDetails.price});
+      } else {
+        productOrder = await ProductOrder.create(req.body.orderDetails);
+        productOrder.setOrder(order);
+        productOrder.setProduct(product);
+      }
+      res.json(productOrder);
     }
   } catch (error) {
     next(error);
   }
 });
-
-// router.get("/guest/:cart", async (req, res, next) => {
-//   console.log(req.params.cart, "inside route");
-//   let cart = JSON.parse(req.params.cart);
-//   try {
-//     let products = [];
-//     let totalItems = 0;
-//     let totalPrice = 0;
-
-//     for (let i = 0; i < cart.length; i++) {
-//       let obj = cart[i];
-//       let id = Object.keys(obj)[0];
-//       id = Number(id);
-//       let product = await Product.findByPk(id);
-//       totalItems += obj[id];
-//       totalPrice += product.price * obj[String(id)];
-//       products.push({ product: product, quantity: obj[String(id)] });
-//     }
-//     res.json({
-//       products: products,
-//       totalItems: totalItems,
-//       totalPrice: totalPrice,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 router.get("/user/cart", requireToken, async (req, res, next) => {
   try {
