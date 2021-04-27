@@ -11,8 +11,10 @@ export class SingleProduct extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: 1
-    }
+      
+      quantity: 1,
+    };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -20,18 +22,24 @@ export class SingleProduct extends React.Component {
     const id = this.props.match.params.id;
     this.props.getSingleProduct(id);
   }
-  handleClick(id, price, product){
-    console.log("Handle Click", id)
-    this.props.addProduct(this.props.match.params.id, Number(this.state.quantity), price, product)
+  
+  handleClick(id, price, product) {
+    console.log('Handle Click', id);
+    this.props.addProduct(
+      this.props.match.params.id,
+      Number(this.state.quantity),
+      price,
+      product
+    );
   }
-  handleChange(event){
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
   render() {
     const product = this.props.product.singleProduct;
-   console.log(product, 'inventory')
+    console.log(product, 'inventory');
     return (
       <div className="container">
       <div className="row s_product_inner">
@@ -62,8 +70,6 @@ export class SingleProduct extends React.Component {
                  </div>
              </div>
         </div>
-        </div>
-      </div>
       </div>
 
     );
@@ -75,7 +81,8 @@ const mapState = (product) => ({
 const mapDispatch = (dispatch, { history }) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    addProduct: (id, quantity, price, product) => dispatch(fetchAddProduct(id, quantity, price, product))
+    addProduct: (id, quantity, price, product) =>
+      dispatch(fetchAddProduct(id, quantity, price, product)),
   };
 };
 export default connect(mapState, mapDispatch)(SingleProduct);
