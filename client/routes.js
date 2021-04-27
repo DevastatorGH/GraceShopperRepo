@@ -8,6 +8,7 @@ import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import AllUsers from './components/AllUsers';
 import EditProduct from './components/EditProduct';
+import Order from './components/Order';
 
 /**
  * COMPONENT
@@ -44,6 +45,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/products" component={AllProducts} />
+            <Route exact path='/products/user/cart' component={Order} />
             <Route exact path='/products/:id' component={SingleProduct} />
           </Switch>
         )}
