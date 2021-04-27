@@ -43,15 +43,18 @@ export const fetchAddProduct = (id, quantity, price, product) => {
         dispatch(addProduct(data));
       } else {
         let cart = JSON.parse(localStorage.getItem("cart"));
+        console.log("Inside Else Statement", cart)
         if (cart) {
           let seen = false;
           for (let i = 0; i < cart.length; i++) {
             if (cart[i].product.id === id) {
+              console.log("For Loop Cart", cart[i])
               cart[i].quantity = quantity + cart[i].quantity;
               seen = true;
             }
           }
           if (!seen) {
+            console.log("Line 57")
             cart.push({ product, quantity, price });
             seen = false;
           }
