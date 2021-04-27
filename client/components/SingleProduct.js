@@ -31,8 +31,8 @@ export class SingleProduct extends React.Component {
     // this.props.getSingleProduct(id);
   }
 
-  handleClick(id, price){
-    this.props.addProduct(id, Number(this.state.quantity), price)
+  handleClick(id, price, product){
+    this.props.addProduct(id, Number(this.state.quantity), price, product)
   }
 
   handleChange(event){
@@ -68,7 +68,9 @@ export class SingleProduct extends React.Component {
                {/* <span className="material-icons">add_circle_outline</span> */}
                </div>
                 <div className="add_to_card">
-                <button onClick={() => this.handleClick(product.id, product.price)} className="btn btn-warning" type="button"><Link to="/cart">Add To Cart</Link></button>
+
+                  <button onClick={() => this.handleClick(product.id, product.price, product)} className="btn btn-warning" type="button">ADD TO CART</button>
+
                  </div>
                  <div className="social_icon">
                   <i className="ti-facebook"></i>
@@ -90,7 +92,7 @@ const mapState = (product) => ({
 const mapDispatch = (dispatch, { history }) => {
   return {
     getSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
-    addProduct: (id, quantity, price) => dispatch(fetchAddProduct(id, quantity, price))
+    addProduct: (id, quantity, price, product) => dispatch(fetchAddProduct(id, quantity, price, product))
   };
 };
 
