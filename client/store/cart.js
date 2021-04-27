@@ -109,20 +109,17 @@ export const fetchCheckout = (userInfo) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data } = await axios.put(`/api/products/checkout`, {
+        const { data } = await axios.put(`/api/products/user/checkout`, {
           headers: {
             authorization: token,
-          },
-          userInfo: {
-            userInfo,
           }
         });
-        dispatch(clear(data));
+        dispatch(clearCart(data));
       } else {
         let cart = localStorage.getItem("cart");
         const { data } = await axios.put(`/api/products/guest/checkout`, { cart, userInfo });
         localStorage.removeItem("cart");
-        dispatch(clear(data));
+        dispatch(clearCart(data));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);

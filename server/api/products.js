@@ -10,7 +10,7 @@ module.exports = router;
 const requireToken = async (req, res, next) => {
   try {
     let token;
-    if(req.body.headers){
+    if (req.body.headers) {
       token = req.body.headers.authorization;
     } else {
       token = req.headers.authorization;
@@ -68,19 +68,22 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
         totalItems: order.totalItems + req.body.orderDetails.quantity,
       });
 
-      if(isCreated){
+      if (isCreated) {
         user.addOrder(order);
       }
-      console.log(req.params.id)
+      console.log(req.params.id);
       let productOrder = await ProductOrder.findOne({
         where: {
           orderId: order.id,
-          productId: req.params.id
+          productId: req.params.id,
         },
       });
 
       if (productOrder) {
-        productOrder = await productOrder.update({quantity: req.body.orderDetails.quantity + productOrder.quantity, priceSnapshot: req.body.orderDetails.price});
+        productOrder = await productOrder.update({
+          quantity: req.body.orderDetails.quantity + productOrder.quantity,
+          priceSnapshot: req.body.orderDetails.price,
+        });
       } else {
         productOrder = await ProductOrder.create(req.body.orderDetails);
         productOrder.setOrder(order);
@@ -103,7 +106,7 @@ router.get("/user/cart", requireToken, async (req, res, next) => {
         },
       });
 
-      console.log(await order.getProductOrders())
+      console.log(await order.getProductOrders());
       res.send(await order.getProductOrders());
     }
   } catch (error) {
@@ -111,31 +114,73 @@ router.get("/user/cart", requireToken, async (req, res, next) => {
   }
 });
 
-router.put("/checkout", requireToken, async (req, res, next) => {
-  console.log("In Put Route Line 115")
+router.put("/user/checkout", requireToken, async (req, res, next) => {
   try {
     if (req.user) {
-
-    let order = await OrderModel.findOne({
-      where: {
-        userId: req.user.id,
-        orderStatus: "pending",
-      },
-    });
-    order = await order.update({ orderStatus: "processed" });
-    let productOrder = await order.getProductOrders();
-    for (let i = 0; i < productOrder.length; i++) {
-      let id = productOrder[i].dataValues.productId;
-      let product = await Product.findByPk(id);
-       await product.update({inventory: product.inventory - productOrder.quantity})
+      let order = await OrderModel.findOne({
+        where: {
+          userId: req.user.id,
+          orderStatus: "pending",
+        },
+      });
+      order = await order.update({ orderStatus: "processed" });
+      let productOrder = await order.getProductOrders();
+      for (let i = 0; i < productOrder.length; i++) {
+        let id = productOrder[i].dataValues.productId;
+        let product = await Product.findByPk(id);
+        console.log(productOrder.quantity, "product");
+        product = await product.update({
+          inventory: product.inventory - productOrder[i].dataValues.quantity,
+        });
+      }
+      res.end();
     }
-   res.end()
-  }
   } catch (error) {
     next(error);
   }
 });
 
+router.put("/guest/checkout", async (req, res, next) => {
+  console.log("In Put Route Line 115");
+  try {
+    let user = await User.create(req.body.userInfo);
+
+    let order = await OrderModel.create(req.body);
+    order = await order.update({ orderStatus: "processed" });
+    user.addOrder(order);
+
+    let totalPrice = 0;
+    let totalItems = 0;
+    let cart = req.body.cart;
+
+    for (let i = 0; i < cart.length; i++) {
+      let product = cart[i].product;
+      totalPrice += cart[i].quantity;
+      totalPrice += cart[i].price;
+      let productOrder = await ProductOrder.create({quantity: cart[i].quantity, priceSnapshot: cart[i].price});
+      productOrder.setOrder(order);
+      productOrder.setProduct(product);
+    }
+
+    order = await order.update({
+      totalPrice: totalPrice,
+      totalItems: totalItems,
+    });
+
+    let productOrder = await order.getProductOrders();
+    for (let i = 0; i < productOrder.length; i++) {
+      let id = productOrder[i].dataValues.productId;
+      let product = await Product.findByPk(id);
+      console.log(productOrder.quantity, "product");
+      product = await product.update({
+        inventory: product.inventory - productOrder[i].dataValues.quantity,
+      });
+    }
+    res.end();
+  } catch (error) {
+    next(error);
+  }
+});
 
 //checkout
 // router.put('/checkout', async (req, res, next) => {
