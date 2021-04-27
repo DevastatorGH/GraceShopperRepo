@@ -42,11 +42,8 @@ export const fetchUpdateProduct = (product, history) => {
   return async (dispatch) => {
     console.log('product:', product);
     try {
-      const { data: updated } = await axios.put(
-        `/api/products/${product.id}`,
-        product
-      );
-      dispatch(updateProduct(updated));
+      const { data } = await axios.put(`/api/products/${product.id}`, product);
+      dispatch(updateProduct(data));
     } catch (error) {
       console.log(error);
     }
@@ -73,9 +70,7 @@ export default function singleProductReducer(state = initialState, action) {
       return action.product;
     case UPDATE_PRODUCT:
       console.log('inside reducer update product');
-      return state.map((product) =>
-        product.id === action.product.id ? action.product : product
-      );
+      return action.product;
     case DELETE_PRODUCT:
       console.log('inside reducer delete product');
       return state.filter((product) => product.id !== action.product.id);

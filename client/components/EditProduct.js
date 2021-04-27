@@ -6,10 +6,12 @@ import {
   fetchDeleteProduct,
 } from '../store/singleProduct';
 
+const initialState = { name: '' };
 export class EditProduct extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { id: '' };
+    this.state = initialState;
+    console.log('initial state:', initialState);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     //this.handleClick = this.handleClick.bind(this);
@@ -26,6 +28,7 @@ export class EditProduct extends React.Component {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.setState({
         name: this.props.product.name || '',
+        id: this.props.match.params.id,
       });
     }
   }
@@ -37,7 +40,8 @@ export class EditProduct extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.updateProduct({ ...this.props.match.params.id, ...this.state });
+    console.log(this.props);
+    this.props.updateProduct({ ...this.props.match.params, ...this.state });
   }
 
   render() {
