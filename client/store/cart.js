@@ -28,6 +28,7 @@ export const fetchAddProduct = (id, quantity, price, product) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
+        console.log(token, 'token')
         const { data } = await axios.put(
           `/api/products/cart/add_product/${id}`,
           {
@@ -42,19 +43,20 @@ export const fetchAddProduct = (id, quantity, price, product) => {
         );
         dispatch(addProduct(data));
       } else {
+        
+        //localStorage.removeItem("cart");
         let cart = JSON.parse(localStorage.getItem("cart"));
-        console.log("Inside Else Statement", cart)
+
         if (cart) {
           let seen = false;
+          console.log("For Loop Cart", cart)
           for (let i = 0; i < cart.length; i++) {
-            if (cart[i].product.id === id) {
-              console.log("For Loop Cart", cart[i])
+            if (cart[i].product.id === Number(id)) {
               cart[i].quantity = quantity + cart[i].quantity;
               seen = true;
             }
           }
           if (!seen) {
-            console.log("Line 57")
             cart.push({ product, quantity, price });
             seen = false;
           }
@@ -64,7 +66,7 @@ export const fetchAddProduct = (id, quantity, price, product) => {
           cart.push({ product, quantity, price });
           localStorage.setItem("cart", JSON.stringify(cart));
         }
-        dispatch(getCart(cart));
+        dispatch(getCart(JSON.parse(localStorage.getItem("cart"))));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
@@ -84,7 +86,7 @@ export const fetchGetCart = () => {
         });
         dispatch(getCart(data));
       } else {
-        let cart = localStorage.getItem("cart");
+        let cart = JSON.parse(localStorage.getItem("cart"));
         dispatch(getCart(cart));
       }
     } catch (error) {

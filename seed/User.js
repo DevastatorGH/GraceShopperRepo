@@ -19,6 +19,13 @@ const user = [
     email: "tmurtimer2z@nymag.com",
     creditCard: "3582640256177208",
     isAdmin: false
+  },
+  {
+    username: "ina",
+    password: "$2b$05$PgAtvVd2OdivDK0Q2e2O/eUwGhA23yag2N9UKlhNU7fFrSPm2.iq.",
+    email: "tmurtimer2z@nymag.com",
+    creditCard: "3582640256177208",
+    isAdmin: true
   }
 ]
 

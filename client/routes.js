@@ -8,9 +8,9 @@ import AllProducts from './components/AllProducts';
 import SingleProduct from './components/SingleProduct';
 import AllUsers from './components/AllUsers';
 import EditProduct from './components/EditProduct';
-import Checkout from './components/demoCheckout';
-import Cart from './components/Cart'
-
+import AddProducts from './components/AddProducts';
+import demoCheckout from './components/demoCheckout';
+import Cart from './components/Cart';
 
 /**
  * COMPONENT
@@ -30,26 +30,26 @@ class Routes extends Component {
         {isAdmin ? (
           <div>
             <Route path='/home' component={AllProducts} />
-            <Route exact path='/products' component={AllProducts} />
             <Route path='/products/:id' component={SingleProduct} />
             <Route path='/products/:id' component={EditProduct} />
+            <Route exact path='/products' component={AllProducts} />
+            <Route exact path='/products' component={AddProducts} />
             <Route path='/users' component={AllUsers} />
           </div>
         ) : isLoggedIn ? (
           <div>
             <Route path='/home' component={AllProducts} />
-            <Route exact path="/products" component={AllProducts} />
-            <Route exact path='/products/user/cart' component={Cart}/>
+            <Route exact path='/products' component={AllProducts} />
+            <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
             <Route exact path='/products/user/cart/checkout' component={Checkout}/>
-
           </div>
         ) : (
-        <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route exact path="/products" component={AllProducts} />
+          <Switch>
+            <Route path='/' exact component={Login} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
+            <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
             <Route exact path='/cart' component={Cart}/>

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const GET_USERS = 'GET_USERS';
+const TOKEN = "token"
 
 const getUsers = (users) => {
     return {
@@ -12,8 +13,15 @@ const getUsers = (users) => {
 export const fetchUsers = () => {
     return async (dispatch) => {
         try {
-            const { data } = await axios.get('/api/users');
+            const token = window.localStorage.getItem(TOKEN)
+            if(token) {
+            const { data } = await axios.get('/api/users', {
+                headers: {
+                    authorization: token,
+                }
+            });
             dispatch(getUsers(data))
+            }
         } catch (error) {
             console.log('Error fetching users', error)
         }

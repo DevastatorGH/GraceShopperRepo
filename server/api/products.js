@@ -1,9 +1,9 @@
-const router = require("express").Router();
+const router = require('express').Router();
 // const { Order } = require("../../client/components/Order");
-const OrderModel = require("../db/models/order");
-const Product = require("../db/models/product");
-const User = require("../db/models/user");
-const ProductOrder = require("../db/models/productOrder");
+const OrderModel = require('../db/models/order');
+const Product = require('../db/models/product');
+const User = require('../db/models/user');
+const ProductOrder = require('../db/models/productOrder');
 
 module.exports = router;
 
@@ -24,7 +24,25 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-router.get("/", async (req, res, next) => {
+const admin = async (req, res, next) => {
+  let token;
+  if (req.body.headers) {
+    token = req.body.headers.authorization;
+  } else {
+    token = req.headers.authorization;
+  }
+  const user = await User.findByToken(token);
+  req.user = user;
+  console.log('req user', req.user);
+  if (user.isAdmin) {
+    next();
+  } else {
+    console.log('Not Authorized!');
+    alert('Not Authorized!');
+  }
+};
+
+router.get('/', async (req, res, next) => {
   try {
     const allProducts = await Product.findAll();
     res.json(allProducts);
@@ -33,12 +51,21 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.post('/', requireToken, admin, async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body);
+    res.json(newProduct);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get('/:id', async (req, res, next) => {
   try {
     const singleProduct = await Product.findByPk(req.params.id);
 
     if (!singleProduct) {
-      const err = Error("Product not found");
+      const err = Error('Product not found');
       err.status = 400;
       throw err;
     }
@@ -48,7 +75,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
+router.put('/cart/add_product/:id', requireToken, async (req, res, next) => {
   try {
     if (req.user) {
       const user = req.user;
@@ -57,7 +84,7 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
       let [order, isCreated] = await OrderModel.findOrCreate({
         where: {
           userId: user.id,
-          orderStatus: "pending",
+          orderStatus: 'pending',
         },
       });
 
@@ -96,13 +123,13 @@ router.put("/cart/add_product/:id", requireToken, async (req, res, next) => {
   }
 });
 
-router.get("/user/cart", requireToken, async (req, res, next) => {
+router.get('/user/cart', requireToken, async (req, res, next) => {
   try {
     if (req.user) {
       let order = await OrderModel.findOne({
         where: {
           userId: req.user.id,
-          orderStatus: "pending",
+          orderStatus: 'pending',
         },
       });
 
@@ -177,6 +204,30 @@ router.put("/guest/checkout", async (req, res, next) => {
       });
     }
     res.end();
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:id', requireToken, admin, async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+    await product.update(req.body);
+    res.send(product);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete('/:id', requireToken, admin, async (req, res, next) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+    if (product) {
+      await product.destroy();
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     next(error);
   }

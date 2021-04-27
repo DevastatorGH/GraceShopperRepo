@@ -65,7 +65,6 @@ export class SingleProduct extends React.Component {
         </div>
       </div>
       </div>
-
     );
   }
 }
