@@ -24,7 +24,7 @@ class Cart extends React.Component {
       <div>
         <h1>My Cart</h1>
         <div>
-          {this.props.auth.length > 0 ? (
+          {this.props.auth.id ? (
             this.props.products.length > 0 ? (
               this.props.cart.map((productOrder) => {
                 let product = this.props.products.find(
@@ -44,9 +44,9 @@ class Cart extends React.Component {
                         <div className="s_product_text">
                           <h3>{product.name}</h3>
                           <h2>{`$${(product.price / 1000).toFixed(2)}`}</h2>
-
                           <p>{product.description}</p>
                           <h2>Quantity: {productOrder.quantity}</h2>
+                          <button className="btn btn-warning" type="button">Remove From Cart</button>
                           {/* {totalProducts += productOrder.quantity} */}
                         </div>
                       </div>
@@ -65,6 +65,7 @@ class Cart extends React.Component {
                 totalPrice += product.product.price * product.quantity;
                 return (
                   <div key={product.product.id} className="container">
+                
                     <div className="row s_product_inner">
                       <div className="col-lg-5">
                         <img src={product.product.imageURL} />
@@ -73,13 +74,12 @@ class Cart extends React.Component {
                         <div className="s_product_text">
                           <h3>{product.product.name}</h3>
                           <h2>{`$${(product.product.price / 1000).toFixed(2)}`}</h2>
-
-                          <p>{product.product.description}</p>
+                          <p>{product.product.description}</p>  
                           <h2>Quantity: {product.quantity}</h2>
                           {/* {totalProducts += productOrder.quantity} */}
                         </div>
                       </div>
-                    </div>{" "}
+                    </div>
                   </div>
                 );
               }
@@ -101,6 +101,8 @@ class Cart extends React.Component {
     );
   }
 }
+
+
 
 const mapState = (state) => ({
   cart: state.cart,

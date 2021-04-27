@@ -7,6 +7,7 @@ import AllProducts from './AllProducts';
 import Cart from './Cart';
 import AllUsers from './AllUsers';
 
+
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
   console.log('Inside nav bar', props);
   return (
@@ -21,8 +22,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
             <a href='#' onClick={handleClick}>
               Logout
             </a>
-            <Link to='/cart' component={Cart}>
-              <span className='cart-count'>5</span>
+            <Link to='/products/user/cart' component={Cart}>
+              <span className='cart-count'>{cart.length}</span>
             </Link>
             <Link to='/products' component={AddProducts}>
               Add Products
@@ -35,8 +36,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
             <a href='#' onClick={handleClick}>
               Logout
             </a>
-            <Link to='/cart' component={Cart}>
-              <span className='cart-count'>5</span>
+            <Link to='/products/user/cart' component={Cart}>
+              <span className='cart-count'>Cart</span>
             </Link>
           </div>
         ) : (
