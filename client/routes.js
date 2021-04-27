@@ -11,6 +11,8 @@ import EditProduct from './components/EditProduct';
 import AddProducts from './components/AddProducts';
 import demoCheckout from './components/demoCheckout';
 import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import CompletedOrder from './components/CompletedOrder'
 
 /**
  * COMPONENT
@@ -55,7 +57,7 @@ class Routes extends Component {
             <Route exact path='/cart' component={Cart}/>
             <Route exact path='/products/guest/cart' component={Cart}/>
             <Route exact path='/checkout' component={Checkout}/>
-            <Route exact path ='/products/user/cart/completedOrder'/>
+            <Route exact path ='/completedOrder' component={CompletedOrder}/>
           </Switch>
         )}
       </div>
