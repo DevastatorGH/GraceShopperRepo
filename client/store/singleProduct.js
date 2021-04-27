@@ -38,22 +38,26 @@ export const fetchSingleProduct = (id) => {
   };
 };
 
-export const fetchUpdateProduct = (product) => {
+export const fetchUpdateProduct = (product, history) => {
   return async (dispatch) => {
+    console.log('product:', product);
     try {
-      const { data } = await axios.put(`/api/products/${product.id}`, product);
-      dispatch(updateProduct(data));
+      const { data: updated } = await axios.put(
+        `/api/products/${product.id}`,
+        product
+      );
+      dispatch(updateProduct(updated));
     } catch (error) {
       console.log(error);
     }
   };
 };
 
-export const fetchDeleteProduct = (id) => {
+export const fetchDeleteProduct = (id, history) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(`/api/products/${id}`);
-      dispatch(deleteProduct(data));
+      const { data: product } = await axios.delete(`/api/products/${id}`);
+      dispatch(deleteProduct(product));
     } catch (error) {
       console.log(error);
     }
@@ -68,8 +72,12 @@ export default function singleProductReducer(state = initialState, action) {
       console.log('Inside Reducer Single Produce');
       return action.product;
     case UPDATE_PRODUCT:
-      return action.product;
+      console.log('inside reducer update product');
+      return state.map((product) =>
+        product.id === action.product.id ? action.product : product
+      );
     case DELETE_PRODUCT:
+      console.log('inside reducer delete product');
       return state.filter((product) => product.id !== action.product.id);
     default:
       return state;
