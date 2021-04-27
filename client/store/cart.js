@@ -11,42 +11,54 @@ const getCart = (cart) => {
   };
 };
 
+const ADD_PRODUCT = "ADD_PRODUCT";
 
-export const fetchAddProduct = (id, quantity, price) => {
+const addProduct = (productOrder) => {
+  return {
+    type: ADD_PRODUCT,
+    productOrder,
+  };
+};
+
+export const fetchAddProduct = (id, quantity, price, product) => {
   return async (dispatch) => {
-   //localStorage.removeItem('cart')
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data } = await axios.put(`/api/products/${id}`, {
-          quantity,
-          priceSnapshot: price,
-        });
+        const { data } = await axios.put(
+          `/api/products/cart/add_product/${id}`,
+          {
+            headers: {
+              authorization: token,
+            },
+            orderDetails: {
+              quantity: quantity,
+              priceSnapshot: price,
+            },
+          }
+        );
+        dispatch(addProduct(data));
       } else {
-        if (localStorage.getItem("cart")) {
-          let cart = JSON.parse(localStorage.getItem("cart"));
+        let cart = JSON.parse(localStorage.getItem("cart"));
+        if (cart) {
           let seen = false;
           for (let i = 0; i < cart.length; i++) {
-            if (cart[i][`${id}`]) {
-              cart[i][`${id}`] = quantity + cart[i][`${id}`];
+            if (cart[i].product.id === id) {
+              cart[i].quantity = quantity + cart[i].quantity;
               seen = true;
-            } 
+            }
           }
-          if(!seen){
-              let obj = {};
-              obj[`${id}`] = quantity;
-              cart.push(obj);
-            seen = false
+          if (!seen) {
+            cart.push({ product, quantity, price });
+            seen = false;
           }
           localStorage.setItem("cart", JSON.stringify(cart));
         } else {
-          let cart = [];
-          let obj = {};
-          obj[`${id}`] = quantity;
-          cart.push(obj);
-          // "[{1: 4}, {3:1}]"
-          localStorage.setItem("cart", JSON.stringify(cart)); // take array stringify it and set it on local storage
+          cart = [];
+          cart.push({ product, quantity, price });
+          localStorage.setItem("cart", JSON.stringify(cart));
         }
+        dispatch(getCart(cart));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
@@ -58,15 +70,16 @@ export const fetchGetCart = () => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      console.log(token);
       if (token) {
-        const { data } = await axios.put(`/api/user/cart`);
+        const { data } = await axios.get(`/api/products/user/cart`, {
+          headers: {
+            authorization: token,
+          },
+        });
         dispatch(getCart(data));
       } else {
-      let cart = localStorage.getItem("cart");
-      console.log(cart, "cart");
-      const { data } = await axios.get(`/api/products/guest/${cart}`);
-      dispatch(getCart(data));
+        let cart = localStorage.getItem("cart");
+        dispatch(getCart(cart));
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
@@ -74,12 +87,47 @@ export const fetchGetCart = () => {
   };
 };
 
-const initialState = {};
+export const fetchCheckout = () => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data } = await axios.get(`/api/products/user/cart/checkout`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        //dispatch(clear(data));
+      } else {
+        let cart = localStorage.getItem("cart");
+        const { data } = await axios.put(`/api/products/guest/checkout`, { cart });
+        localStorage.removeItem("cart");
+        //dispatch(clear(data));
+      }
+    } catch (error) {
+      console.log("Error in Fetch Add Product", error);
+    }
+  };
+};
+
+const initialState = [];
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case ADD_PRODUCT:
+      let newState = state.filter((productOrder) => {
+        if (productOrder.id === action.productOrder.id) {
+          return action.productOrder;
+        } else {
+          productOrder;
+        }
+      });
+      if (newState.length < state.length) {
+        newState.push(action.productOrder);
+      }
+      return newState;
     default:
       return state;
   }

@@ -19,7 +19,8 @@ module.exports = db.define("order", {
     validate: {
       notEmpty: true,
       min: 0
-    }
+    },
+    defaultValue: 0
   },
   totalItems: {
     type: Sequelize.INTEGER,
