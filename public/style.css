@@ -8,6 +8,7 @@
 /* Nav Bar Styles  */
 body {
   font-family: 'Open Sans', sans-serif;
+  margin-left: 50px;
 }
 
 a {
@@ -20,6 +21,29 @@ nav {
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.material-icons.add-cart-img {
+  color: whitesmoke;
+  position:absolute;
+  right: 1%;
+  top: 1%;
+  width: 80px
+}
+
+.cart-count{
+
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  z-index: 1;
+  background-color: skyblue;
+  padding: 15px;
+  width: 20px;
+  height: 20px;
+  border-radius: 70%;
+  color: #fff;
+
 }
 /* End Nav Bar Styles */
 
@@ -112,14 +136,6 @@ nav a {
 /* END Authentication Page Styles */
 
 /* All Products View Styles */
-.row ul li {
-  list-style: none;
-  text-align: center;
-}
-
-/* END All Products View Styles */
-
-/* Single Product View Styles  */
 .row {
   display:flex;
   flex-wrap: wrap;
@@ -128,39 +144,46 @@ nav a {
   padding-top: 75px;
 }
 
+.row .all-products-inner{
+  padding-top: 15px;
+}
+
+.row .product-card {
+  display:flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+  padding-top: 0px;
+
+}
+.row h1 {
+  text-align: center;
+}
+
+.row ul li {
+  list-style: none;
+  text-align: center;
+}
+
+.col-lg-4 .col-md-6 .col-sm-6{
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/* END All Products View Styles */
+
+/* Single Product View Styles  */
+
 .btn {
   margin-top: 40px;
   margin-left: 25px;
 }
+
+.btn .btn-primary .checkout Link{
+  color: black
+}
 /* END Single Product Styles */
 
 
-/* Uncertain */
-/* ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #111;
-}
-
-.material-icons.white600 {
-  color: whitesmoke;
-  text-align: right;
-} */

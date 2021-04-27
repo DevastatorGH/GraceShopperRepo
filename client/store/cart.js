@@ -4,6 +4,7 @@ const TOKEN = "token";
 
 const GET_CART = "GET_CART";
 
+
 const getCart = (cart) => {
   return {
     type: GET_CART,
@@ -11,7 +12,9 @@ const getCart = (cart) => {
   };
 };
 
+
 const ADD_PRODUCT = "ADD_PRODUCT";
+
 
 const addProduct = (productOrder) => {
   return {
@@ -109,6 +112,7 @@ export const fetchCheckout = () => {
     }
   };
 };
+
 
 const initialState = [];
 

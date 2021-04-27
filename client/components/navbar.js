@@ -3,9 +3,12 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import AllProducts from "./AllProducts"
+import Cart from "./Cart"
 
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn}, props) => {
+  console.log("Inside nav bar", props)
+  return (
   <div>
     <nav>
       {isLoggedIn ? (
@@ -15,6 +18,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart" component={Cart}><span className="cart-count">5</span></Link>
         </div>
       ) : (
         <div>
@@ -22,13 +26,14 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/products">Products</Link>
-          <Link to="/about">About</Link>
-          {/* <span class="material-icons white600">shopping_cart</span> */}
+          <Link to="/cart" component={Cart}><span className="cart-count">5</span></Link>
+          {/* <span className="material-icons add-cart-img">shopping_cart</span> */}
         </div>
+
       )}
     </nav>
   </div>
-)
+)}
 
 /**
  * CONTAINER

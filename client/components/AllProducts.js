@@ -12,12 +12,13 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
 
     return products && products.length > 0 ? (
-      <div className="container">
+      <div className="row">
+      <h1>Random Products For All Your Needs</h1>
       <div className="row all_products_inner">
-        <ul>
+        <ul className="row">
           {products.map((product) => {
             return (
-            <li className="productCard" key={product.id}>
+            <li className="col-lg-4 col-md-6 col-sm-6 productCard" key={product.id}>
               <div>
                 <ProductCard product={product}/>
               </div>

@@ -5,7 +5,9 @@ const ProductCard = props => {
   const { product } = props
 
   return (
-    <div className="card" style={{ width: "20rem" }}>
+    <div className="row product-card">
+    <div className="col-lg-4 col-md-6 col-sm-6">
+    <div className="card mb-50 text-center" style={{ width: "20rem" }}>
       <img
         className="card-img-top"
         src={product.imageURL}
@@ -21,6 +23,8 @@ const ProductCard = props => {
         </h5>
       </div>
     </div>
+   </div>
+   </div>
   )
 }
 
