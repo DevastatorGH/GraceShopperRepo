@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  fetchSingleProduct,
-  fetchUpdateProduct,
-  fetchDeleteProduct,
-} from '../store/singleProduct';
+import { fetchUpdateProduct, fetchDeleteProduct } from '../store/singleProduct';
 
 const initialState = { name: '' };
 export class EditProduct extends React.Component {
@@ -103,7 +99,6 @@ const mapState = (state) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  //   getProduct: (id) => dispatch(fetchSingleProduct(id)),
   updateProduct: (product) => dispatch(fetchUpdateProduct(product, history)),
   deleteProduct: (product) => dispatch(fetchDeleteProduct(product, history)),
 });

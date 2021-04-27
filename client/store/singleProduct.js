@@ -51,7 +51,12 @@ export const fetchUpdateProduct = (product, history) => {
       if (token) {
         const { data } = await axios.put(
           `/api/products/${product.id}`,
-          product
+          product,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
         );
         dispatch(updateProduct(data));
       }
@@ -66,7 +71,11 @@ export const fetchDeleteProduct = (id, history) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
-        const { data: product } = await axios.delete(`/api/products/${id}`);
+        const { data: product } = await axios.delete(`/api/products/${id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
         dispatch(deleteProduct(product));
       }
     } catch (error) {

@@ -46,7 +46,7 @@ export class SingleProduct extends React.Component {
           <div className='col-lg-5 offset-lg-1'>
             <div className='s_product_text'>
               <h3>{product.name}</h3>
-              <h2>{`$${(product.price / 1000).toFixed(2)}`}</h2>
+              <h2>{`$${(product.price / 100).toFixed(2)}`}</h2>
               {/* <ul>
                <li>Category: Household</li>
                <li>Availibility: In Stock</li>

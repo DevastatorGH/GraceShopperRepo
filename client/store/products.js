@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const SET_PRODUCTS = 'SET_PRODUCTS';
 const ADD_PRODUCTS = 'ADD_PRODUCTS';
+const TOKEN = 'token';
 
 const setProducts = (products) => {
   return {
@@ -31,9 +32,16 @@ export const fetchProducts = () => {
 export const addProduct = (product, history) => {
   return async (dispatch) => {
     try {
-      const { data: added } = await axios.post('/api/products', product);
-      dispatch(_addProducts(added));
-      history.push('/');
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+        const { data: added } = await axios.post('/api/products', product, {
+          headers: {
+            authorization: token,
+          },
+        });
+        dispatch(_addProducts(added));
+        history.push('/');
+      }
     } catch (error) {
       console.log(error);
     }
