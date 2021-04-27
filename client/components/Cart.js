@@ -1,17 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { fetchGetCart } from "../store/cart";
-import { fetchProducts } from "../store/products";
+
+import React from "react"
+import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import { fetchGetCart, fetchCheckout } from "../store/cart"
+import { fetchProducts } from "../store/products"
+import Checkout from "./demoCheckout"
+
 
 class Cart extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
     this.props.getCart();
     this.props.getProducts();
+  }
+
+  handleClick(){
+
+         if(this.props.auth.id){
+          this.props.checkout()
+          this.props.history.push("/completedOrder")
+         } else {
+          this.props.history.push("/form")
+         }
+
   }
 
   render() {
@@ -21,8 +36,9 @@ class Cart extends React.Component {
     console.log("Products", this.props.products);
     console.log("Auth", this.props.auth)
     return (
-      <div>
+      <div className="main-cart-checkout">
         <h1>My Cart</h1>
+
         <div>
           {this.props.auth.id ? (
             this.props.products.length > 0 ? (
@@ -91,22 +107,16 @@ class Cart extends React.Component {
           <h1>Total Products: {totalProducts}</h1>
           <h1>Order Total: ${(totalPrice / 1000).toFixed(2)}</h1>
         </div>
-
-        <div>
-          <button className="btn btn-primary checkout">
-            <Link to="/checkout">Checkout</Link>
-          </button>
-        </div>
+           <button type="submit" className="btn btn-primary checkout"onClick={this.handleClick}>Checkout</button>
       </div>
     );
   }
 }
 
-
-
 const mapState = (state) => ({
   cart: state.cart,
   products: state.products,
+
   auth: state.auth,
 });
 
@@ -114,7 +124,8 @@ const mapDispatch = (dispatch) => {
   return {
     getCart: () => dispatch(fetchGetCart()),
     getProducts: () => dispatch(fetchProducts()),
-  };
-};
+    checkout: () => dispatch(fetchCheckout())
+  }
+}
 
 export default connect(mapState, mapDispatch)(Cart);

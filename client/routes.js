@@ -42,6 +42,7 @@ class Routes extends Component {
             <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
+            <Route exact path='/products/user/cart/checkout' component={Checkout}/>
           </div>
         ) : (
           <Switch>
@@ -51,9 +52,10 @@ class Routes extends Component {
             <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
-            {/* <Route exact path='/cart' component={Cart} /> */}
-            <Route exact path='/products/guest/cart' component={Cart} />
-            <Route exact path='/checkout' component={demoCheckout} />
+            <Route exact path='/cart' component={Cart}/>
+            <Route exact path='/products/guest/cart' component={Cart}/>
+            <Route exact path='/checkout' component={Checkout}/>
+            <Route exact path ='/products/user/cart/completedOrder'/>
           </Switch>
         )}
       </div>
