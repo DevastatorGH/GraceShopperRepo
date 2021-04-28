@@ -9,14 +9,14 @@ const SALT_ROUNDS = 5
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    unique: true
   },
   password: {
     type: Sequelize.STRING
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
       isEmail: true
     }
@@ -52,7 +52,7 @@ User.prototype.generateToken = function () {
  */
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } })
-  
+
   if (!user || !(await user.correctPassword(password))) {
     console.log(user, (await user.correctPassword(password)))
     const error = Error("Incorrect username/password")

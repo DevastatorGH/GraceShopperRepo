@@ -43,8 +43,8 @@ export const fetchAddProduct = (id, quantity, price, product) => {
         );
         dispatch(addProduct(data));
       } else {
-        
-        //localStorage.removeItem("cart");
+
+        // localStorage.removeItem("cart");
         let cart = JSON.parse(localStorage.getItem("cart"));
 
         if (cart) {
@@ -110,6 +110,7 @@ export const fetchCheckout = (userInfo) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
+      console.log("Token in Fetch Checkout", token)
       if (token) {
         const { data } = await axios.put(`/api/products/user/checkout`, {
           headers: {
@@ -118,10 +119,10 @@ export const fetchCheckout = (userInfo) => {
         });
         dispatch(clearCart(data));
       } else {
-        let cart = localStorage.getItem("cart");
-        const { data } = await axios.put(`/api/products/guest/checkout`, { cart, userInfo });
+        let cart = JSON.parse(localStorage.getItem("cart"));
+        await axios.post("/api/products/guest/checkout", {cart, userInfo})
         localStorage.removeItem("cart");
-        dispatch(clearCart(data));
+        dispatch(clearCart());
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
