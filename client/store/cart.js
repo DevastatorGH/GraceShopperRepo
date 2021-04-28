@@ -129,34 +129,6 @@ export const fetchCheckout = (userInfo) => {
   };
 };
 
-const DELETE_PRODUCT = 'DELETE_PRODUCT';
-
-const deleteProduct = (id) => {
-  return {
-    type: DELETE_PRODUCT,
-    id,
-  };
-};
-
-export const fetchDeleteProduct = (id) => {
-  return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem(TOKEN);
-      if (token) {
-          await axios.delete(`/api/products/${id}`, {
-          headers: {
-            authorization: token,
-          }
-        });
-        dispatch(deleteProduct(id));
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-
 const initialState = [];
 
 export default function cartReducer(state = initialState, action) {
@@ -184,9 +156,6 @@ export default function cartReducer(state = initialState, action) {
     case CLEAR_CART:
       console.log(action.cart)
       return action.cart
-    case DELETE_PRODUCT:
-      console.log(state, 'state')
-      return state.filter((productOrder) => productOrder.productId !== action.id);  
     default:
       return state;
   }
