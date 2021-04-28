@@ -22,6 +22,7 @@ export class EditProduct extends React.Component {
     console.log('prevProps:', prevProps);
     console.log('this props', this.props);
     if (prevProps.match.params.id !== this.props.match.params.id) {
+      console.log('product props:', this.props.product);
       this.setState({
         name: this.props.product.name || '',
         id: this.props.match.params.id,
