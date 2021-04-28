@@ -59,7 +59,7 @@ const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchGetCart()),
     getProducts: () => dispatch(fetchProducts()),
-    checkout: () => dispatch(fetchCheckout())
+    checkout: (email) => dispatch(fetchCheckout(email))
 
   }
 }
