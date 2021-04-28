@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchGetCart, fetchCheckout } from '../store/cart';
+import { fetchGetCart, fetchCheckout, fetchDeleteProduct } from '../store/cart';
 import { fetchProducts } from '../store/products';
 import Checkout from './demoCheckout';
 
@@ -9,6 +9,7 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -23,6 +24,9 @@ class Cart extends React.Component {
     } else {
       this.props.history.push('/form');
     }
+  }
+  handleDelete(id){
+    this.props.delete(id)
   }
 
   render() {
@@ -58,7 +62,7 @@ class Cart extends React.Component {
                           <h2>{`$${(product.price / 1000).toFixed(2)}`}</h2>
                           <p>{product.description}</p>
                           <h2>Quantity: {productOrder.quantity}</h2>
-                          <button className='btn btn-warning' type='button'>
+                          <button onClick={() => this.handleDelete(product.id)} className='btn btn-warning' type='button'>
                             Remove From Cart
                           </button>
                           {/* {totalProducts += productOrder.quantity} */}
@@ -73,7 +77,7 @@ class Cart extends React.Component {
             )
           ) : (
             <div>
-              {this.props.cart ? (this.props.cart.map((product) => {
+              {this.props.cart && this.props.cart.length > 0 ? (this.props.cart.map((product) => {
                 totalProducts += product.quantity;
                 totalPrice += product.product.price * product.quantity;
                 return (
@@ -128,6 +132,7 @@ const mapDispatch = (dispatch) => {
     getCart: () => dispatch(fetchGetCart()),
     getProducts: () => dispatch(fetchProducts()),
     checkout: () => dispatch(fetchCheckout()),
+    delete: (id) => dispatch(fetchDeleteProduct(id))
   };
 };
 

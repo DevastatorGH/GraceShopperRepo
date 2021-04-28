@@ -110,7 +110,6 @@ export const fetchCheckout = (userInfo) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
-      console.log("Token in Fetch Checkout", token)
       if (token) {
         const { data } = await axios.put(`/api/products/user/checkout`, {
           headers: {
@@ -120,12 +119,39 @@ export const fetchCheckout = (userInfo) => {
         dispatch(clearCart(data));
       } else {
         let cart = JSON.parse(localStorage.getItem("cart"));
-        // await axios.post("/api/products/guest/checkout", {cart, userInfo})
+        await axios.post("/api/products/guest/checkout", {cart, userInfo})
         localStorage.removeItem("cart");
         dispatch(clearCart());
       }
     } catch (error) {
       console.log("Error in Fetch Add Product", error);
+    }
+  };
+};
+
+const DELETE_PRODUCT = 'DELETE_PRODUCT';
+
+const deleteProduct = (id) => {
+  return {
+    type: DELETE_PRODUCT,
+    id,
+  };
+};
+
+export const fetchDeleteProduct = (id) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      if (token) {
+          await axios.delete(`/api/products/${id}`, {
+          headers: {
+            authorization: token,
+          }
+        });
+        dispatch(deleteProduct(id));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 };
@@ -158,6 +184,9 @@ export default function cartReducer(state = initialState, action) {
     case CLEAR_CART:
       console.log(action.cart)
       return action.cart
+    case DELETE_PRODUCT:
+      console.log(state, 'state')
+      return state.filter((productOrder) => productOrder.productId !== action.id);  
     default:
       return state;
   }
