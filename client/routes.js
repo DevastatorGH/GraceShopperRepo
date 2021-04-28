@@ -45,26 +45,28 @@ class Routes extends Component {
             <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
-            <Route
+            {/* <Route
               exact
               path='/products/user/cart/checkout'
               component={Checkout}
-            />
+            /> */}
           </div>
         ) : (
-          <Switch>
+          <div>
+          <h1>I'm hear</h1>
             <Route path='/' exact component={Login} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route exact path='/products/:id' component={SingleProduct} />
-            <Route path='/products' component={AllProducts} />
+            <Route exact path='/products' component={AllProducts} />
             <Route exact path='/products/user/cart' component={Cart} />
+            <Route exact path='/products/:id' component={SingleProduct} />
+           
 
-            <Route exact path='/cart' component={Cart} />
+            {/* <Route exact path='/cart' component={Cart} />
             <Route exact path='/products/guest/cart' component={Cart} />
             <Route exact path='/form' component={Checkout} />
-            <Route exact path='/completedOrder' component={CompletedOrder} />
-          </Switch>
+            <Route exact path='/completedOrder' component={CompletedOrder} /> */}
+          </div>
         )}
       </div>
     );
