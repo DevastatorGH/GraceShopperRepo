@@ -15,9 +15,8 @@ class Checkout extends React.Component{
     }
 
     handleClick(){
-      console.log("Handle Click")
       this.props.checkout(this.state.email)
-
+      this.props.history.push('/completedOrder');
     }
     handleChange(event){
       this.setState({

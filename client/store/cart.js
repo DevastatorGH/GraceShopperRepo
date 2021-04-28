@@ -24,7 +24,6 @@ const addProduct = (productOrder) => {
 };
 
 export const fetchAddProduct = (id, quantity, price, product) => {
-  console.log("I'm hear")
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
@@ -121,7 +120,7 @@ export const fetchCheckout = (userInfo) => {
         dispatch(clearCart(data));
       } else {
         let cart = JSON.parse(localStorage.getItem("cart"));
-        await axios.post("/api/products/guest/checkout", {cart, userInfo})
+        // await axios.post("/api/products/guest/checkout", {cart, userInfo})
         localStorage.removeItem("cart");
         dispatch(clearCart());
       }
@@ -157,6 +156,7 @@ export default function cartReducer(state = initialState, action) {
         return [...state, action.productOrder]
       }
     case CLEAR_CART:
+      console.log(action.cart)
       return action.cart
     default:
       return state;
