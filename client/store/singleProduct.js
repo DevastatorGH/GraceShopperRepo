@@ -30,13 +30,10 @@ const deleteProduct = (product) => {
 export const fetchSingleProduct = (id) => {
   return async (dispatch) => {
     try {
-      const token = window.localStorage.getItem(TOKEN);
-      if (token) {
         console.log('Inside Fetch Single Product', id);
         const { data } = await axios.get(`/api/products/${id}`);
         console.log('Data return from fetchSingleProduct', data);
         dispatch(getProduct(data));
-      }
     } catch (error) {
       console.log('There was an error with Fetching Single Product', error);
     }

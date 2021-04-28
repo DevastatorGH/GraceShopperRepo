@@ -24,6 +24,7 @@ const addProduct = (productOrder) => {
 };
 
 export const fetchAddProduct = (id, quantity, price, product) => {
+  console.log("I'm hear")
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
@@ -44,7 +45,7 @@ export const fetchAddProduct = (id, quantity, price, product) => {
         dispatch(addProduct(data));
       } else {
 
-        // localStorage.removeItem("cart");
+        //localStorage.removeItem("cart");
         let cart = JSON.parse(localStorage.getItem("cart"));
 
         if (cart) {
