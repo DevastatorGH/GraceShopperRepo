@@ -73,7 +73,7 @@ class Cart extends React.Component {
             )
           ) : (
             <div>
-              {this.props.cart.map((product) => {
+              {this.props.cart ? (this.props.cart.map((product) => {
                 totalProducts += product.quantity;
                 totalPrice += product.product.price * product.quantity;
                 return (
@@ -96,7 +96,7 @@ class Cart extends React.Component {
                     </div>
                   </div>
                 );
-              })}
+              })) : <h1>Your cart is empty</h1>}
             </div>
           )}
         </div>
@@ -104,13 +104,13 @@ class Cart extends React.Component {
           <h1>Total Products: {totalProducts}</h1>
           <h1>Order Total: ${(totalPrice / 1000).toFixed(2)}</h1>
         </div>
-        <button
+        {totalProducts > 0 ? <button
           type='submit'
           className='btn btn-primary checkout'
           onClick={this.handleClick}
         >
-          Checkout
-        </button>
+          Checkout 
+        </button> : <h1><Link to='/products'>Keep shopping</Link></h1>}
       </div>
     );
   }
