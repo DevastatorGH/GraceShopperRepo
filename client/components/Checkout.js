@@ -1,43 +1,44 @@
 import React from "react"
 import {Link} from "react-router-dom"
 import { connect } from "react-redux"
+import {fetchCheckout} from "../store/cart"
 
 class Checkout extends React.Component{
     constructor(props){
         super(props)
+        this.state = {
+          email: ''
+        }
+        this.handleClick = this.handleClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
     }
+
+    handleClick(){
+      console.log("Handle Click")
+      this.props.checkout(this.state.email)
+
+    }
+    handleChange(event){
+      this.setState({
+        [event.target.name]: event.target.value,
+      });
+    }
+
 
     render(){
 
         return (
             <div>
-            <form id="form" class="form">
+            <form id="form" className="form">
             <h2>Checkout Form</h2>
           <h5>Enter Your Checkout Information</h5>
             <div className="form-control">
-              <label for="username">Username</label>
-              <input type="text" id="username" placeholder="Username/ Email address " />
-              <small>Error message</small>
+              <label htmlFor="username">Username</label>
+              <input name="email" onChange={this.handleChange} type="text" value={this.state.email} id="email" placeholder="Email Address " />
              </div>
-            {/* <div className="form-control">
-              <label for="address">Address</label>
-              <input type="text" id="adress" placeholder="Enter address" />
-              <input type="text" id="adress" placeholder="Enter address" />
-              <small>Error message</small>
-            </div>
-           <div className="form-control">
-              <label for="confirm-password">Confirm Password</label>
-              <input
-                type="password"
-                id="confirm-password"
-                placeholder="Enter password again"
-              />
-              <small>Error message</small> */}
-            {/* </div>  */}
-            {/* <div className="redirect-link">
-              <h5>Don't have an account? Sign Up here </h5>
-            </div> */}
-            <button type="submit">Submit Payment </button>
+
+            <button onClick={() => this.handleClick()} type="submit">Submit Payment </button>
           </form>
         </div>
 
@@ -51,12 +52,15 @@ class Checkout extends React.Component{
 const mapState = state => ({
   cart: state.cart,
   products: state.products
+
 })
 
 const mapDispatch = dispatch => {
   return {
     getCart: () => dispatch(fetchGetCart()),
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    checkout: (email) => dispatch(fetchCheckout(email))
+
   }
 }
 

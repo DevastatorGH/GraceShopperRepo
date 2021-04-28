@@ -61,7 +61,7 @@ class Routes extends Component {
             <Route exact path='/products/:id' component={SingleProduct} />
             <Route exact path='/cart' component={Cart} />
             <Route exact path='/products/guest/cart' component={Cart} />
-            <Route exact path='/checkout' component={Checkout} />
+            <Route exact path='/form' component={Checkout} />
             <Route exact path='/completedOrder' component={CompletedOrder} />
           </Switch>
         )}

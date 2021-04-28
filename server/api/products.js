@@ -167,10 +167,15 @@ router.put('/user/checkout', requireToken, async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 router.put('/guest/checkout', async (req, res, next) => {
   console.log('In Put Route Line 115');
+=======
+router.post("/guest/checkout", async (req, res, next) => {
+>>>>>>> 9ab71b476ab9c0db5e968fb4b040999f09079a8f
   try {
-    let user = await User.create(req.body.userInfo);
+    let user = await User.create({email: req.body.userInfo});
+
 
     let order = await OrderModel.create(req.body);
     order = await order.update({ orderStatus: 'processed' });
