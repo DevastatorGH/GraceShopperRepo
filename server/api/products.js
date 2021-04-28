@@ -220,7 +220,7 @@ router.put('/:id', requireToken, admin, async (req, res, next) => {
   }
 });
 
-router.delete('/:id', requireToken, admin, async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     if (product) {
