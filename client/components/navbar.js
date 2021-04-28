@@ -21,7 +21,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
             <a href='#' onClick={handleClick}>
               Logout
             </a>
-            <Link to='/products/user/cart' component={Cart}>
+            <Link to='/cart' component={Cart}>
               <span className='cart-count'>Cart</span>
             </Link>
             <Link to='/products' component={AddProducts}>
@@ -35,7 +35,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
             <a href='#' onClick={handleClick}>
               Logout
             </a>
-            <Link to='/products/user/cart' component={Cart}>
+            <Link to='/cart' component={Cart}>
               <span className='cart-count'>Cart</span>
             </Link>
           </div>
@@ -48,7 +48,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
               Products
             </Link>
             <Link to='/cart' component={Cart}>
-              <span className='cart-count'>5</span>
+              <span className='cart-count'>Cart</span>
             </Link>
             {/* <span className="material-icons add-cart-img">shopping_cart</span> */}
           </div>

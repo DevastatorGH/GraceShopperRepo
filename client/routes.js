@@ -32,28 +32,28 @@ class Routes extends Component {
         {isAdmin ? (
           <div>
             <Route path='/home' component={AllProducts} />
+            <Route path='/login' component={AllProducts} />
+            <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
             <Route exact path='/products/:id' component={EditProduct} />
             <Route path='/products' component={AddProducts} />
             <Route path='/products' component={AllProducts} />
             <Route path='/users' component={AllUsers} />
-            <Route exact path='/products/user/cart' component={Cart} />
+            <Route exact path='/completedOrder' component={CompletedOrder} />
+            
           </div>
         ) : isLoggedIn ? (
           <div>
             <Route path='/home' component={AllProducts} />
+            <Route path='/login' component={AllProducts} />
+            <Route path='/signup' component={AllProducts} />
             <Route exact path='/products' component={AllProducts} />
-            <Route exact path='/products/user/cart' component={Cart} />
+            <Route exact path='/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
-            {/* <Route
-              exact
-              path='/products/user/cart/checkout'
-              component={Checkout}
-            /> */}
+            <Route exact path='/completedOrder' component={CompletedOrder} />
           </div>
         ) : (
           <div>
-          <h1>I'm hear</h1>
             <Route path='/' exact component={Login} />
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
@@ -61,9 +61,9 @@ class Routes extends Component {
             <Route exact path='/products/user/cart' component={Cart} />
             <Route exact path='/products/:id' component={SingleProduct} />
            
-
             {/* <Route exact path='/cart' component={Cart} />
             <Route exact path='/products/guest/cart' component={Cart} />
+
             <Route exact path='/form' component={Checkout} />
             <Route exact path='/completedOrder' component={CompletedOrder} /> */}
           </div>
