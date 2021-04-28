@@ -20,8 +20,8 @@ export class SingleProduct extends React.Component {
     const id = this.props.match.params.id;
     this.props.getSingleProduct(id);
   }
+
   handleClick(id, price, product){
-    console.log("Handle Click", id)
     this.props.addProduct(this.props.match.params.id, Number(this.state.quantity), price, product)
   }
   handleChange(event){
@@ -30,9 +30,10 @@ export class SingleProduct extends React.Component {
     });
   }
   render() {
-    const product = this.props.product.singleProduct;
+    const product = this.props.product;
    console.log(product, 'inventory')
     return (
+
       <div className="container">
       <div className="row s_product_inner">
         <div className="col-lg-5">
@@ -68,8 +69,8 @@ export class SingleProduct extends React.Component {
     );
   }
 }
-const mapState = (product) => ({
-  product,
+const mapState = (state) => ({
+  product: state.singleProduct,
 });
 const mapDispatch = (dispatch, { history }) => {
   return {
