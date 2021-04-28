@@ -44,9 +44,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }, props) => {
             {/* The navbar will show these links before you log in */}
             <Link to='/login'>Login</Link>
             <Link to='/signup'>Sign Up</Link>
-            <Link to='/products' component={AllProducts}>
-              Products
-            </Link>
+            <Link to='/home'>Home</Link>
             <Link to='/cart' component={Cart}>
               <span className='cart-count'>5</span>
             </Link>
