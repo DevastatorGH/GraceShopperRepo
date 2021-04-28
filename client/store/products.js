@@ -33,13 +33,14 @@ export const addProduct = (product, history) => {
   return async (dispatch) => {
     try {
       const token = window.localStorage.getItem(TOKEN);
+      console.log('token:', token);
       if (token) {
-        const { data: added } = await axios.post('/api/products', product, {
+        const { data } = await axios.post('/api/products', product, {
           headers: {
             authorization: token,
           },
         });
-        dispatch(_addProducts(added));
+        dispatch(_addProducts(data));
         history.push('/');
       }
     } catch (error) {

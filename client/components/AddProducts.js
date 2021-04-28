@@ -27,15 +27,16 @@ export class AddProducts extends React.Component {
       <div>
         <form id='product-form' onSubmit={handleSubmit}>
           <label htmlFor='name'>Product Name</label>
-          <input name='name' onChange={handleChange} value={name} />
+          <input required name='name' onChange={handleChange} value={name} />
           <label htmlFor='description'>Product Description</label>
           <input
+            required
             name='description'
             onChange={handleChange}
             value={description}
           />
           <label htmlFor='price'>Product Price</label>
-          <input name='price' onChange={handleChange} value={price} />
+          <input required name='price' onChange={handleChange} value={price} />
           <label htmlFor='imageURL'>Image URL</label>
           <input name='imageURL' onChange={handleChange} value={imageURL} />
           <button type='submit'>Submit Product</button>

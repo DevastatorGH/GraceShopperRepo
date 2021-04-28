@@ -141,21 +141,21 @@ router.get('/user/cart', requireToken, async (req, res, next) => {
   }
 });
 
-router.put("/user/checkout", requireToken, async (req, res, next) => {
+router.put('/user/checkout', requireToken, async (req, res, next) => {
   try {
     if (req.user) {
       let order = await OrderModel.findOne({
         where: {
           userId: req.user.id,
-          orderStatus: "pending",
+          orderStatus: 'pending',
         },
       });
-      order = await order.update({ orderStatus: "processed" });
+      order = await order.update({ orderStatus: 'processed' });
       let productOrder = await order.getProductOrders();
       for (let i = 0; i < productOrder.length; i++) {
         let id = productOrder[i].dataValues.productId;
         let product = await Product.findByPk(id);
-        console.log(productOrder.quantity, "product");
+        console.log(productOrder.quantity, 'product');
         product = await product.update({
           inventory: product.inventory - productOrder[i].dataValues.quantity,
         });
@@ -167,13 +167,12 @@ router.put("/user/checkout", requireToken, async (req, res, next) => {
   }
 });
 
-router.post("/guest/checkout", async (req, res, next) => {
+router.post('/guest/checkout', async (req, res, next) => {
   try {
-    let user = await User.create({email: req.body.userInfo});
-
+    let user = await User.create({ email: req.body.userInfo });
 
     let order = await OrderModel.create(req.body);
-    order = await order.update({ orderStatus: "processed" });
+    order = await order.update({ orderStatus: 'processed' });
     user.addOrder(order);
 
     let totalPrice = 0;
@@ -184,8 +183,11 @@ router.post("/guest/checkout", async (req, res, next) => {
       console.log(cart[i].price, 'ggggghghg')
       let product = cart[i].product;
       totalPrice += cart[i].quantity;
-      totalItems += cart[i].price;
-      let productOrder = await ProductOrder.create({quantity: cart[i].quantity, priceSnapshot: cart[i].price});
+      totalPrice += cart[i].price;
+      let productOrder = await ProductOrder.create({
+        quantity: cart[i].quantity,
+        priceSnapshot: cart[i].price,
+      });
       productOrder.setOrder(order);
       productOrder.setProduct(product);
     }
@@ -199,7 +201,7 @@ console.log(totalPrice, totalItems)
     for (let i = 0; i < productOrder.length; i++) {
       let id = productOrder[i].dataValues.productId;
       let product = await Product.findByPk(id);
-      console.log(productOrder.quantity, "product");
+      console.log(productOrder.quantity, 'product');
       product = await product.update({
         inventory: product.inventory - productOrder[i].dataValues.quantity,
       });
