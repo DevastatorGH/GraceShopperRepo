@@ -178,8 +178,9 @@ router.post('/guest/checkout', async (req, res, next) => {
     let totalPrice = 0;
     let totalItems = 0;
     let cart = req.body.cart;
-
+    console.log(req.body.cart, 'cart')
     for (let i = 0; i < cart.length; i++) {
+      console.log(cart[i].price, 'ggggghghg')
       let product = cart[i].product;
       totalPrice += cart[i].quantity;
       totalPrice += cart[i].price;
@@ -190,7 +191,7 @@ router.post('/guest/checkout', async (req, res, next) => {
       productOrder.setOrder(order);
       productOrder.setProduct(product);
     }
-
+console.log(totalPrice, totalItems)
     order = await order.update({
       totalPrice: totalPrice,
       totalItems: totalItems,
@@ -234,15 +235,3 @@ router.delete('/:id', requireToken, admin, async (req, res, next) => {
     next(error);
   }
 });
-
-//checkout
-// router.put('/checkout', async (req, res, next) => {
-//check token => if user exists => update order status
-//else
-//1.create a new user
-//2.create a new order
-//user.setOrder(order)
-//3.create newProductOrder => product_order
-//2. for all products from local storage => newProductOrder.setOrder(order)
-//newProductOrder.setProduct(product)
-// }
