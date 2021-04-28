@@ -76,7 +76,6 @@ class Cart extends React.Component {
           ) : (
             <div>
             {this.props.cart.map((product) => {
-                
                 totalProducts += product.quantity;
                 totalPrice += product.product.price * product.quantity;
                 return (
