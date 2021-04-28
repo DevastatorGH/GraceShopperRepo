@@ -120,7 +120,7 @@ export const fetchCheckout = (userInfo) => {
         dispatch(clearCart(data));
       } else {
         let cart = JSON.parse(localStorage.getItem("cart"));
-        // await axios.post("/api/products/guest/checkout", {cart, userInfo})
+        await axios.post("/api/products/guest/checkout", {cart, userInfo})
         localStorage.removeItem("cart");
         dispatch(clearCart());
       }

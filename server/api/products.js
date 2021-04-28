@@ -178,11 +178,10 @@ router.post('/guest/checkout', async (req, res, next) => {
     let totalPrice = 0;
     let totalItems = 0;
     let cart = req.body.cart;
-    console.log(req.body.cart, 'cart')
     for (let i = 0; i < cart.length; i++) {
-      console.log(cart[i].price, 'ggggghghg')
-      let product = cart[i].product;
-      totalPrice += cart[i].quantity;
+      let product = await Product.findByPk(cart[i].product.id);
+      
+      totalItems += cart[i].quantity;
       totalPrice += cart[i].price;
       let productOrder = await ProductOrder.create({
         quantity: cart[i].quantity,
@@ -191,17 +190,16 @@ router.post('/guest/checkout', async (req, res, next) => {
       productOrder.setOrder(order);
       productOrder.setProduct(product);
     }
-console.log(totalPrice, totalItems)
+
     order = await order.update({
       totalPrice: totalPrice,
-      totalItems: totalItems,
+      totalItems: totalItems
     });
 
     let productOrder = await order.getProductOrders();
     for (let i = 0; i < productOrder.length; i++) {
       let id = productOrder[i].dataValues.productId;
       let product = await Product.findByPk(id);
-      console.log(productOrder.quantity, 'product');
       product = await product.update({
         inventory: product.inventory - productOrder[i].dataValues.quantity,
       });
